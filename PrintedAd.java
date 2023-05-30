@@ -1,26 +1,26 @@
-class PrintedAd extends Advertisement {
-    private int costFront;
-    private int costMid;
-    private int costBack;
-    void setcostFront(int costFront) {
-        this.costFront = costFront;
+class PrintedAd extends Advertisement{
+    private int wordCount;
+    private float costInPos;
+    String position;
+
+    PrintedAd(PrintedAdType info, int _wordCount, String _position){
+        wordCount = _wordCount;
+        position = _position;
+
+        switch(position){
+            case "front":
+                costInPos = info.getCostFront();
+                break;
+            case "middle":
+                costInPos = info.getCostMid();
+                break;
+            case "back":
+                costInPos = info.getCostBack();
+                break;
+        }
     }
-    void setcostMid(int costMid) {
-        this.costMid = costMid;
-    }
-    void setcostBack(int costBack) {
-        this.costBack = costBack;
-    }
-    int getcostFront() {
-        return costFront;
-    }
-    int getcostMid() {
-        return costMid;
-    }
-    int getcostBack() {
-        return costBack;
-    }
-    public String toString() {
-        return super.toString() + "\n Cost for the first page for each word: " + costFront + "\n Cost for the middle pages for each word: " + costMid + "\n Cost for the last page for each word: " + costBack;
+
+    float calculateCost(){
+        return wordCount * costInPos * durationDays;
     }
 }

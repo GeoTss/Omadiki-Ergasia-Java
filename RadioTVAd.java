@@ -1,33 +1,29 @@
-class RadioTVAd {
-    private int cpsMorning;
-    private int cpsMidday;
-    private int cpsEvening;
-    private int cpsNight;
-    void setcpsMorning(int cpsMorning) {
-        this.cpsMorning = cpsMorning;
+class RadioTVAd extends Advertisement{
+    private String timeZone;
+    private int durationSeconds;
+    private float timeZoneCPS;
+
+    RadioTVAd(RadioTVAdType info, String _timeZone, int _durationSeconds){
+        timeZone = _timeZone;
+        durationSeconds = _durationSeconds;
+
+        switch(timeZone){
+            case "morning":
+                timeZoneCPS = info.getcpsMorning();
+                break;
+            case "midday":
+                timeZoneCPS = info.getcpsMidday();
+                break;
+            case "evening":
+                timeZoneCPS = info.getcpsEvening();
+                break;
+            case "night":
+                timeZoneCPS = info.getcpsNight();
+                break;
+        }
     }
-    void setcpsMidday(int cpsMidday) {
-        this.cpsMidday = cpsMidday;
-    }
-    void setcpsEvening(int cpsEvening) {
-        this.cpsEvening = cpsEvening;
-    }
-    void setcpsNight(int cpsNight) {
-        this.cpsNight = cpsNight;
-    }
-    int getcpsMorning() {
-        return cpsMorning;
-    }
-    int getcpsMidday() {
-        return cpsMidday;
-    }
-    int getcpsEvening() {
-        return cpsEvening;
-    }
-    int getcpsNight() {
-        return cpsNight;
-    }
-    public String toString() {
-        return super.toString() + "\nCost per second during morning hours: " + cpsMorning + "\nCost per second during midday hours: " + cpsMidday + "\nCost per second during evening hours: " + cpsEvening + "\nCost per second during night hours: " + cpsNight;
+
+    float calculateCost(){
+        return durationSeconds * timeZoneCPS * durationDays;
     }
 }
