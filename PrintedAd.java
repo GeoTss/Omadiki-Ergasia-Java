@@ -8,7 +8,7 @@ class PrintedAd extends Advertisement{
         productCode = _product.getCode();
         reason = _reason;
         durationDays = _durationDays;
-        VAT = _info.carrier_VAT;
+        VAT = _info.getCarrierVAT();
 
         wordCount = _wordCount;
         position = _position;
@@ -31,7 +31,7 @@ class PrintedAd extends Advertisement{
         productCode = _product;
         reason = _reason;
         durationDays = _durationDays;
-        VAT = _info.carrier_VAT;
+        VAT = _info.getCarrierVAT();
 
         wordCount = _wordCount;
         position = _position;

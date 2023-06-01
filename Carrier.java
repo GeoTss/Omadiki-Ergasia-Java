@@ -1,6 +1,6 @@
 class Carrier {
-    private String VAT;
-    private String Name;
+    private String VAT, Name;
+    
     Carrier(String _VAT, String _Name) {
         VAT = _VAT;
         Name = _Name;

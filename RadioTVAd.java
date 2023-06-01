@@ -8,7 +8,7 @@ class RadioTVAd extends Advertisement{
         productCode = _product.getCode();
         reason = _reason;
         durationDays = _durationDays;
-        VAT = _info.carrier_VAT;
+        VAT = _info.getCarrierVAT();
 
         timeZone = _timeZone;
         durationSeconds = _durationSeconds;
@@ -34,7 +34,7 @@ class RadioTVAd extends Advertisement{
         productCode = _product;
         reason = _reason;
         durationDays = _durationDays;
-        VAT = _info.carrier_VAT;
+        VAT = _info.getCarrierVAT();
 
         timeZone = _timeZone;
         durationSeconds = _durationSeconds;
