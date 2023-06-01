@@ -106,11 +106,5 @@ public class App {
       scan.close();
       getResponse();
     }
-
-  
-  
-  
-  
-  
   }
 }
