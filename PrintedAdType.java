@@ -4,9 +4,19 @@ public class PrintedAdType extends AdvertisementType{
     protected float costMid;
     protected float costBack;
 
-    PrintedAdType(String _description, String _carrier_VAT, float _costFront, float _costMid, float _costBack){
+    PrintedAdType(String _description, Carrier _carrier, float _costFront, float _costMid, float _costBack){
         code = currCode++;
-        carrier_VAT = _carrier_VAT;
+        carrier_VAT = _carrier.getVAT();
+        description = _description;
+
+        costFront = _costFront;
+        costMid = _costMid;
+        costBack = _costBack;
+    }
+
+    PrintedAdType(String _description, String _carrier, float _costFront, float _costMid, float _costBack){
+        code = currCode++;
+        carrier_VAT = _carrier;
         description = _description;
 
         costFront = _costFront;

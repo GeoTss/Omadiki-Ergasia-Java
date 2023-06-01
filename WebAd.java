@@ -3,11 +3,27 @@ public class WebAd extends Advertisement{
     protected int additionalPages;
     protected WebAdType typeInfo;
 
-    WebAd(WebAdType _info, int _productCode, String _reason, int _durationDays, boolean _autoShow, int _additionalPages){
+    WebAd(WebAdType _info, Product _product, String _reason, int _durationDays, boolean _autoShow, int _additionalPages){
         typeCode = _info.getCode();
-        productCode = _productCode;
+        productCode = _product.getCode();
         reason = _reason;
         durationDays = _durationDays;
+        VAT = _info.carrier_VAT;
+        
+        autoShow = _autoShow;
+        additionalPages = _additionalPages;
+
+        typeInfo = _info;
+        if(autoShow == false)
+            typeInfo.CostAutoShow = 0;
+    }
+
+    WebAd(WebAdType _info, String _product, String _reason, int _durationDays, boolean _autoShow, int _additionalPages){
+        typeCode = _info.getCode();
+        productCode = _product;
+        reason = _reason;
+        durationDays = _durationDays;
+        VAT = _info.carrier_VAT;
         
         autoShow = _autoShow;
         additionalPages = _additionalPages;
@@ -22,6 +38,6 @@ public class WebAd extends Advertisement{
     }
 
     public String toString(){
-        return super.toString() + "\nAdditional pages: " + additionalPages + "Auto show up: " + autoShow;
+        return super.toString() + "\nAdditional pages: " + additionalPages + "\nAuto show up: " + autoShow;
     }
 }
