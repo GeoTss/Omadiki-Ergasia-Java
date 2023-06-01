@@ -2,8 +2,10 @@ class WebAdType extends AdvertisementType{
     private static int currCode = 100;
     protected float CostPerDay, CostPerAdditionalPage, CostAutoShow;
 
-    WebAdType(String _description, float _CostPerDay, float _CostPerAdditionalPage, float _CostAutoShow){
+    WebAdType(String _description, String _carrier_VAT, float _CostPerDay, float _CostPerAdditionalPage, float _CostAutoShow){
         code = currCode++;
+        carrier_VAT = _carrier_VAT;
+        
         description = _description;
         CostPerDay = _CostPerDay;
         CostPerAdditionalPage = _CostPerAdditionalPage;
