@@ -9,4 +9,7 @@ public class adList {
             System.out.println(myArrayList.get(i) + "\n");
         }
     }
+    public Advertisement get(int index) {
+        return myArrayList.get(index);
+    }
 }

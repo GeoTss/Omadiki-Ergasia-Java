@@ -4,4 +4,7 @@ public class productList {
     public void insertProduct(Product _Product) {
         myList.add(_Product);
     }
+    public Product get(int index) {
+        return myList.get(index);
+    }
 }

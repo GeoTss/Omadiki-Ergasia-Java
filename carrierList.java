@@ -9,4 +9,7 @@ class carrierList {
             System.out.println(myArray.get(i) + "\n"); 
         }
     }
+    public Carrier get(int index) {
+        return myArray.get(index);
+    }
 }
