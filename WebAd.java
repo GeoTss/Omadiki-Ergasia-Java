@@ -8,7 +8,7 @@ public class WebAd extends Advertisement{
         productCode = _product.getCode();
         reason = _reason;
         durationDays = _durationDays;
-        VAT = _info.carrier_VAT;
+        VAT = _info.getCarrierVAT();
         
         autoShow = _autoShow;
         additionalPages = _additionalPages;
@@ -23,7 +23,7 @@ public class WebAd extends Advertisement{
         productCode = _product;
         reason = _reason;
         durationDays = _durationDays;
-        VAT = _info.carrier_VAT;
+        VAT = _info.getCarrierVAT();
         
         autoShow = _autoShow;
         additionalPages = _additionalPages;
