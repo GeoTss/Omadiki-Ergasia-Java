@@ -23,4 +23,8 @@ class PrintedAd extends Advertisement{
     float calculateCost(){
         return wordCount * costInPos * durationDays;
     }
+
+    public String toString(){
+        return super.toString() + "\nWord amount: " + wordCount + "\nPosition: " + position;
+    }
 }

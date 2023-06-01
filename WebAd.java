@@ -15,4 +15,8 @@ public class WebAd extends Advertisement{
     float calculateCost(){
         return typeInfo.getCostPerDay() * durationDays + typeInfo.getCostAutoShow() + typeInfo.getCostPerAdditionalPage() * additionalPages;
     }
+
+    public String toString(){
+        return super.toString() + "\nAdditional pages: " + additionalPages + "Auto show up: " + autoShow;
+    }
 }

@@ -1,6 +1,6 @@
 abstract class Advertisement{
     String typeCode, productCode;
-    String VAT;
+    // String VAT;
     String reason;
     protected int durationDays;
 
@@ -13,9 +13,9 @@ abstract class Advertisement{
     void setDescritpion(String reason) {
         this.reason = reason;
     } 
-    void setVAT(String VAT) {
-        this.VAT = VAT;
-    }
+    // void setVAT(String VAT) {
+    //     this.VAT = VAT;
+    // }
     String getProductCode() {
         return productCode;
     }
@@ -25,8 +25,12 @@ abstract class Advertisement{
     String getreason() {
         return reason;
     }
-    String getVAT() {
-        return VAT;
+    // String getVAT() {
+    //     return VAT;
+    // }
+
+    public String toString(){
+        return "Advertisement type code: " + typeCode + "\nProduct code: " + productCode + "\nAppearence duration in days: " + durationDays + "\nReason: " + reason;
     }
 
     abstract float calculateCost();

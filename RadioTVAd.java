@@ -26,4 +26,8 @@ class RadioTVAd extends Advertisement{
     float calculateCost(){
         return durationSeconds * timeZoneCPS * durationDays;
     }
+
+    public String toStirng(){
+        return super.toString() + "\nAdvertisement duration in seconds: " + durationSeconds + "\nTime zone: " + timeZone;
+    }
 }

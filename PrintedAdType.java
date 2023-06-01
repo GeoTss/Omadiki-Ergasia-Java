@@ -21,4 +21,8 @@ public class PrintedAdType extends AdvertisementType{
     int getCostBack() {
         return costBack;
     }
+
+    public String toString(){
+        return super.toString() + "\nPrice per word in first page: " + costFront + "\nPrice per word in middle pages: " + costMid + "\nPrice per word in last page: " + costBack;
+    }
 }

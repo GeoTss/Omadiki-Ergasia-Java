@@ -25,4 +25,8 @@ class WebAdType extends AdvertisementType{
     float getCostAutoShow(){
         return CostAutoShow;
     }
+
+    public String toString(){
+        return super.toString() + "\nCost per day: " + CostPerDay + "\nPrice for automatic show: " + CostAutoShow + "\nCost per additional page: " + CostPerAdditionalPage;
+    }
 }

@@ -28,4 +28,8 @@ class RadioTVAdType extends AdvertisementType{
     int getcpsNight() {
         return cpsNight;
     }
+
+    public String toString(){
+        return super.toString() + "\nPrice per second - Morning zone: " + cpsMorning + "\nPrice per second - Midday zone: " + cpsMidday + "\nPrice per second - Evening zone: " + cpsEvening + "\nPrice per second - Night zone: " + cpsNight;
+    }
 }
