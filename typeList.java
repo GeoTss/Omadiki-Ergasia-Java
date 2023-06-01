@@ -7,5 +7,8 @@ public class typeList {
     public AdvertisementType get(int index) {
         return myArray.get(index);
     }
+    public ArrayList<AdvertisementType> getArray() {
+        return myArray;
+    }
 }
 

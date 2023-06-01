@@ -12,4 +12,7 @@ public class adList {
     public Advertisement get(int index) {
         return myArrayList.get(index);
     }
+    public ArrayList<Advertisement> getArray() {
+        return myArrayList;
+    }
 }

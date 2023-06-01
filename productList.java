@@ -7,4 +7,7 @@ public class productList {
     public Product get(int index) {
         return myList.get(index);
     }
+    public ArrayList<Product> getArray() {
+        return myList;
+    }
 }

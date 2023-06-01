@@ -12,4 +12,7 @@ class carrierList {
     public Carrier get(int index) {
         return myArray.get(index);
     }
+    public ArrayList<Carrier> getArray() {
+        return myArray;
+    }
 }
