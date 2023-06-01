@@ -10,5 +10,15 @@ public class App {
     _productList.insertProduct(new Product("Hello", "IDK", "1212"));
     _productList.insertProduct(new Product("World", "null", "2069"));
     _productList.insertProduct(new Product("ARDVARG", "Pays off", "1821"));
+    typeList _typeList = new typeList();
+    _typeList.insertType(new PrintedAdType("get rekt", (float) 3.14, (float) 6.28, (float) 9.42));
+    _typeList.insertType(new PrintedAdType("I am not a god, i am not a king, i am... worse", (float) 3.03, (float) 8.18, (float) 10.02));
+    _typeList.insertType(new PrintedAdType("frontises smr", (float) 15, (float) 60, (float) 28));
+    _typeList.insertType(new RadioTVAdType("o pappas o paxus", 1, 2, 3, 4));
+    _typeList.insertType(new RadioTVAdType("paei o palios o xronos", 2, 4, 6, 8));
+    _typeList.insertType(new RadioTVAdType("ela re ti leei", 5, 10, 15, 20));
+    _typeList.insertType(new WebAdType("Giannhs", (float) 2, (float) 6, (float) 10));
+    _typeList.insertType(new WebAdType("Giannakhs", (float) 29, (float) 43, (float) 10));
+    _typeList.insertType(new WebAdType("Giannaras", (float) 8, (float) 11.880, (float) 9.11));
   }
 }
