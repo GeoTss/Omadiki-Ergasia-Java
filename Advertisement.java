@@ -1,10 +1,11 @@
 abstract class Advertisement{
-    int typeCode, productCode;
-    // String VAT;
+    int typeCode;
+    String productCode;
+    String VAT;
     String reason;
     protected int durationDays;
 
-    void setProductCode(int code) {
+    void setProductCode(String code) {
         this.productCode = code;
     } 
     void setTypeCode(int code){
@@ -13,10 +14,10 @@ abstract class Advertisement{
     void setDescritpion(String reason) {
         this.reason = reason;
     } 
-    // void setVAT(String VAT) {
-    //     this.VAT = VAT;
-    // }
-    int getProductCode() {
+    void setVAT(String VAT) {
+        this.VAT = VAT;
+    }
+    String getProductCode() {
         return productCode;
     }
     int getTypeCode(){
@@ -25,9 +26,9 @@ abstract class Advertisement{
     String getreason() {
         return reason;
     }
-    // String getVAT() {
-    //     return VAT;
-    // }
+    String getVAT() {
+        return VAT;
+    }
 
     public String toString(){
         return "Advertisement type code: " + typeCode + "\nProduct code: " + productCode + "\nAppearence duration in days: " + durationDays + "\nReason: " + reason;

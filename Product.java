@@ -26,6 +26,6 @@ class Product {
         return DistVAT;
     }
     public String toString() {
-        return "Code: " + Code + "\nDescription: " + Description + "\n Distributor's VAT: " + DistVAT;
+        return "Code: " + Code + "\nDescription: " + Description + "\nDistributor's VAT: " + DistVAT;
     }
 }
