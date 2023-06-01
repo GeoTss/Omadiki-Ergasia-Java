@@ -1,31 +1,39 @@
 class RadioTVAdType extends AdvertisementType{
-    protected int cpsMorning;
-    protected int cpsMidday;
-    protected int cpsEvening;
-    protected int cpsNight;
+    private static int currCode = 100;
+    protected float cpsMorning, cpsMidday, cpsEvening, cpsNight;
 
-    void setcpsMorning(int cpsMorning) {
+    RadioTVAdType(String _description, float _cpsMorning, float _cpsMidday, float _cpsEvening, float _cpsNight){
+        code = currCode++;
+        description = _description;
+        
+        cpsMorning = _cpsMorning;
+        cpsMidday = _cpsMidday;
+        cpsEvening = _cpsEvening;
+        cpsNight = _cpsNight;
+    }
+
+    void setcpsMorning(float cpsMorning) {
         this.cpsMorning = cpsMorning;
     }
-    void setcpsMidday(int cpsMidday) {
+    void setcpsMidday(float cpsMidday) {
         this.cpsMidday = cpsMidday;
     }
-    void setcpsEvening(int cpsEvening) {
+    void setcpsEvening(float cpsEvening) {
         this.cpsEvening = cpsEvening;
     }
-    void setcpsNight(int cpsNight) {
+    void setcpsNight(float cpsNight) {
         this.cpsNight = cpsNight;
     }
-    int getcpsMorning() {
+    float getcpsMorning() {
         return cpsMorning;
     }
-    int getcpsMidday() {
+    float getcpsMidday() {
         return cpsMidday;
     }
-    int getcpsEvening() {
+    float getcpsEvening() {
         return cpsEvening;
     }
-    int getcpsNight() {
+    float getcpsNight() {
         return cpsNight;
     }
 

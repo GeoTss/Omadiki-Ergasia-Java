@@ -3,22 +3,27 @@ class RadioTVAd extends Advertisement{
     private int durationSeconds;
     private float timeZoneCPS;
 
-    RadioTVAd(RadioTVAdType info, String _timeZone, int _durationSeconds){
+    RadioTVAd(RadioTVAdType _info, int _productCode, String _reason, int _durationDays, String _timeZone, int _durationSeconds){
+        typeCode = _info.getCode();
+        productCode = _productCode;
+        reason = _reason;
+        durationDays = _durationDays;
+        
         timeZone = _timeZone;
         durationSeconds = _durationSeconds;
 
         switch(timeZone){
             case "morning":
-                timeZoneCPS = info.getcpsMorning();
+                timeZoneCPS = _info.getcpsMorning();
                 break;
             case "midday":
-                timeZoneCPS = info.getcpsMidday();
+                timeZoneCPS = _info.getcpsMidday();
                 break;
             case "evening":
-                timeZoneCPS = info.getcpsEvening();
+                timeZoneCPS = _info.getcpsEvening();
                 break;
             case "night":
-                timeZoneCPS = info.getcpsNight();
+                timeZoneCPS = _info.getcpsNight();
                 break;
         }
     }

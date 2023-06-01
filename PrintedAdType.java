@@ -1,7 +1,17 @@
 public class PrintedAdType extends AdvertisementType{
-    protected int costFront;
-    protected int costMid;
-    protected int costBack;
+    private static int currCode = 100;
+    protected float costFront;
+    protected float costMid;
+    protected float costBack;
+
+    PrintedAdType(String _description, float _costFront, float _costMid, float _costBack){
+        code = currCode++;
+        description = _description;
+        
+        costFront = _costFront;
+        costMid = _costMid;
+        costBack = _costBack;
+    }
 
     void setCostFront(int costFront) {
         this.costFront = costFront;
@@ -12,13 +22,13 @@ public class PrintedAdType extends AdvertisementType{
     void setCostBack(int costBack) {
         this.costBack = costBack;
     }
-    int getCostFront() {
+    float getCostFront() {
         return costFront;
     }
-    int getCostMid() {
+    float getCostMid() {
         return costMid;
     }
-    int getCostBack() {
+    float getCostBack() {
         return costBack;
     }
 

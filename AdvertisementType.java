@@ -1,5 +1,10 @@
 public class AdvertisementType{
-    protected String code, description, Suplier_VAT;
+    protected int code;
+    protected String description, Suplier_VAT;
+
+    int getCode(){
+        return code;
+    }
 
     public String toString(){
         return "Code: " + code + "\nDescription: " + description; 

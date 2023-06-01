@@ -3,19 +3,24 @@ class PrintedAd extends Advertisement{
     private float costInPos;
     String position;
 
-    PrintedAd(PrintedAdType info, int _wordCount, String _position){
+    PrintedAd(PrintedAdType _info, int _productCode, String _reason, int _durationDays, int _wordCount, String _position){
+        typeCode = _info.getCode();
+        productCode = _productCode;
+        reason = _reason;
+        durationDays = _durationDays;
+
         wordCount = _wordCount;
         position = _position;
 
         switch(position){
             case "front":
-                costInPos = info.getCostFront();
+                costInPos = _info.getCostFront();
                 break;
             case "middle":
-                costInPos = info.getCostMid();
+                costInPos = _info.getCostMid();
                 break;
             case "back":
-                costInPos = info.getCostBack();
+                costInPos = _info.getCostBack();
                 break;
         }
     }
