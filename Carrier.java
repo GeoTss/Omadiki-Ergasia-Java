@@ -1,11 +1,15 @@
 class Carrier {
     private String VAT;
     private String Name;
-    void setVAT(String VAT) {
-        this.VAT = VAT;
+    Carrier(String _VAT, String _Name) {
+        VAT = _VAT;
+        Name = _Name;
     }
-    void setName(String Name) {
-        this.Name = Name;
+    void setVAT(String _VAT) {
+        VAT = _VAT;
+    }
+    void setName(String _Name) {
+        Name = _Name;
     }
     String getVAT() {
         return VAT;

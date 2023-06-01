@@ -2,14 +2,19 @@ class Product {
     private String Code;
     private String Description;
     private String DistVAT;
-    void setCode(String Code) {
-        this.Code = Code;
+    Product(String _Code, String _Description, String _DistVAT) {
+        Code = _Code;
+        Description = _Description;
+        DistVAT = _DistVAT;
     }
-    void setDescription(String Description) {
-        this.Description = Description;
+    void setCode(String _Code) {
+        Code = _Code;
     }
-    void setDistVAT(String DistVAT) {
-        this.DistVAT = DistVAT;
+    void setDescription(String _Description) {
+        Description = _Description;
+    }
+    void setDistVAT(String _DistVAT) {
+        DistVAT = _DistVAT;
     }
     String getCode() {
         return Code;

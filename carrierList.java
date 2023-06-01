@@ -4,4 +4,9 @@ class carrierList {
     public void insertCarrier(Carrier _Carrier) {
         myArray.add(_Carrier);
     }
+    public void displayCarrierList() {
+        for (int i = 0; i < myArray.size(); i++) {
+            System.out.println(myArray.get(i) + "\n"); 
+        }
+    }
 }
