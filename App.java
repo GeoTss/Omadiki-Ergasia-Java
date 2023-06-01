@@ -14,6 +14,7 @@ public class App {
     _productList.insertProduct(new Product("World", "null", "2069"));
     _productList.insertProduct(new Product("ARDVARG", "Pays off", "1821"));
     typeList _typeList = new typeList();
+<<<<<<< HEAD
     _typeList.insertType(new PrintedAdType("get rekt", (float) 3.14, (float) 6.28, (float) 9.42));
     _typeList.insertType(new PrintedAdType("I am not a god, i am not a king, i am... worse", (float) 3.03, (float) 8.18, (float) 10.02));
     _typeList.insertType(new PrintedAdType("frontises smr", (float) 15, (float) 60, (float) 28));
@@ -24,5 +25,16 @@ public class App {
     _typeList.insertType(new WebAdType("Giannakhs", (float) 29, (float) 43, (float) 10));
     _typeList.insertType(new WebAdType("Giannaras", (float) 8, (float) 11.880, (float) 9.11));
 
+=======
+    _typeList.insertType(new PrintedAdType("get rekt", 3.14f, 6.28f, 9.42f));
+    _typeList.insertType(new PrintedAdType("I am not a god, i am not a king, i am... worse", 3.03f, 8.18f, 10.02f));
+    _typeList.insertType(new PrintedAdType("frontises smr", 15f, 60f, 28f));
+    _typeList.insertType(new RadioTVAdType("o pappas o paxus", 1f, 2f, 3f, 4f));
+    _typeList.insertType(new RadioTVAdType("paei o palios o xronos", 2f, 4f, 6f, 8f));
+    _typeList.insertType(new RadioTVAdType("ela re ti leei", 5f, 10f, 15f, 20f));
+    _typeList.insertType(new WebAdType("Giannhs", 2f, 6f, 10f));
+    _typeList.insertType(new WebAdType("Giannakhs", 29f, 43f, 10f));
+    _typeList.insertType(new WebAdType("Giannaras", 8f, 11.880f, 9.11f));
+>>>>>>> 8d996f522c3444319c6914ebd39f0ea2622df475
   }
 }
