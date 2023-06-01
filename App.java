@@ -1,4 +1,7 @@
 public class App {
+  public static void greetUser() {
+    System.out.println("Type 1 to add a new carrier.\nType 2 to add a new Advertisement type.\nType 3 to add a new Advertisement.\nType 4 to display Advertisements.\nType 5 to display Advertisements of a certain Carrier.\nType 6 to evaluate the cost of all the Advertisements of a certain carrier.\nType 7 to display the count of Advertisements per Product.\nType 8 to evaluate the cost of the Advertisement of a single Product.\nType 9 to display the cost of the Advertisements per Product.\nType 0 to exit the application.");
+  }
   public static void main(String[] args) {
     carrierList _carrierList = new carrierList();
     _carrierList.insertCarrier(new Carrier("1234", "Giwrgos"));
@@ -20,5 +23,6 @@ public class App {
     _typeList.insertType(new WebAdType("Giannhs", (float) 2, (float) 6, (float) 10));
     _typeList.insertType(new WebAdType("Giannakhs", (float) 29, (float) 43, (float) 10));
     _typeList.insertType(new WebAdType("Giannaras", (float) 8, (float) 11.880, (float) 9.11));
+
   }
 }
