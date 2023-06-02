@@ -1,12 +1,18 @@
+/*
+ * Team Number: 001
+ * AM: 3220217
+ * AM: 3220203
+ */
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class App {
+public class mainApp {
   public static void greetUser() {
-    System.out.println(
-        "Type 1 to add a new carrier.\nType 2 to add a new Advertisement type.\nType 3 to add a new Advertisement.\nType 4 to display Advertisements.\nType 5 to display Advertisements of a certain Carrier.\nType 6 to evaluate the cost of all the Advertisements of a certain carrier.\nType 7 to display the count of Advertisements per Product.\nType 8 to evaluate the cost of the Advertisement of a single Product.\nType 9 to display the cost of the Advertisements per Product.\nType 0 to exit the application.");
+    System.out.print(
+        "Type 1 to add a new carrier.\nType 2 to add a new Advertisement type.\nType 3 to add a new Advertisement.\nType 4 to display Advertisements.\nType 5 to display Advertisements of a certain Carrier.\nType 6 to evaluate the cost of all the Advertisements of a certain carrier.\nType 7 to display the count of Advertisements per Product.\nType 8 to evaluate the cost of the Advertisement of a single Product.\nType 9 to display the cost of the Advertisements per Product.\nType 0 to exit the application.\nChoice: ");
   }
   public static boolean checkWordCount(int _wordCount) {
     return (_wordCount > 0);
@@ -134,7 +140,6 @@ public class App {
     HashMap<String, ArrayList<Advertisement>> carrierMem = new HashMap<String, ArrayList<Advertisement>>();
     HashMap<Integer, ArrayList<Advertisement>> productMem = new HashMap<Integer, ArrayList<Advertisement>>();
     HashMap<Integer, AdvertisementType> codeMem = new HashMap<Integer, AdvertisementType>();
-    // HashMap<Integer, Product> productMem = new HashMap<Integer, Product>();
 
     for(AdvertisementType ty: _typeList.getArray())
       codeMem.put(ty.getCode(), ty);
@@ -154,7 +159,7 @@ public class App {
     Scanner scan = new Scanner(System.in);
     greetUser();
     int answer = scan.nextInt();
-    while ((answer > 0) && (answer <= 9)) {
+    while (answer != 0) {
       switch (answer) {
         case 1:
           System.out.println("Insert VAT and Name of the new Carrier");
@@ -267,19 +272,29 @@ public class App {
           _adList.displayAdList();
           break;
         case 5:
+          System.out.println("Avaiable carriers:\n-----------------------------------------------");
+          for(Carrier c: _carrierList.getArray())
+            System.out.println(c + "\n-----------------------------------------------");
+          
           String vat;
           do {
             System.out.println("Insert the VAT of the carrier.");
             vat = scan.next();
           } while (!carrierMem.containsKey(vat));
 
+          System.out.println("\n-----------------------------------------------");
           for (Advertisement ad : carrierMem.get(vat))
-            System.out.println(ad);
+            System.out.println(ad + "\n-----------------------------------------------");  
           
           break;
 
         case 6:
+          System.out.println("Avaiable carriers:\n-----------------------------------------------");
+          for(Carrier c: _carrierList.getArray())
+            System.out.println(c + "\n-----------------------------------------------");
+          
           String vatCalcCost;
+
           do{
             System.out.print("Insert the VAT of the carrier: ");
             vatCalcCost = scan.next();
@@ -324,10 +339,10 @@ public class App {
               .compare(p2.getCount(), p1.getCount());
           productCount.sort(productPairComparator);
 
-          for (productPair p : productCount) {
-            System.out.println("Product:\n" + p.getProduct() + "\nCount: " + p.getCount() + "\n");
-            System.out.println("\n-----------------------------------------------");
-          }
+          System.out.println("\n///////////////////////////////////////////\nProducts\n///////////////////////////////////////////\n");
+          for (productPair p : productCount)
+            System.out.println("Product:\n" + p.getProduct() + "\nCount: " + p.getCount() + "\n\n-----------------------------------------------");
+          
           break;
           
         case 8:
@@ -346,7 +361,7 @@ public class App {
             System.out.println("\n-----------------------------------------------");
           }
           
-          System.out.println("Total cost for all advertisements is: " + _sum);
+          System.out.println("Total cost of all advertisements for this product is: " + _sum + "\n\n");
           break;
         case 9:
           class CostPair {
@@ -368,6 +383,7 @@ public class App {
           };
           
           ArrayList<CostPair> productCost = new ArrayList<CostPair>();
+
           for (Product pr : _productList.myList) {
             float _Sum = 0;
             for (Advertisement ad : productMem.get(pr.getCode())){
@@ -382,6 +398,7 @@ public class App {
               p1.getTotalCost());
           productCost.sort(CostPairComparator);
 
+          System.out.println("\n///////////////////////////////////////////\nProducts\n///////////////////////////////////////////\n");
           for (CostPair p: productCost) {
             System.out.println("Product:\n" + p.getProduct() + "\nTotal cost: " + p.getTotalCost() + "\n");
             System.out.println("-----------------------------------------------");
