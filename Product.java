@@ -1,11 +1,11 @@
 class Product {
     private String Code;
     private String Description;
-    private String DistVAT;
-    Product(String _Code, String _Description, String _DistVAT) {
+    private String ProductVAT;
+    Product(String _Code, String _Description, String _ProductVAT) {
         Code = _Code;
         Description = _Description;
-        DistVAT = _DistVAT;
+        ProductVAT = _ProductVAT;
     }
     void setCode(String _Code) {
         Code = _Code;
@@ -13,8 +13,8 @@ class Product {
     void setDescription(String _Description) {
         Description = _Description;
     }
-    void setDistVAT(String _DistVAT) {
-        DistVAT = _DistVAT;
+    void setProductVAT(String _ProductVAT) {
+        ProductVAT = _ProductVAT;
     }
     String getCode() {
         return Code;
@@ -22,10 +22,10 @@ class Product {
     String getDescription() {
         return Description;
     }
-    String getDistVAT() {
-        return DistVAT;
+    String getProductVAT() {
+        return ProductVAT;
     }
     public String toString() {
-        return "Code: " + Code + "\nDescription: " + Description + "\nDistributor's VAT: " + DistVAT;
+        return "Code: " + Code + "\nDescription: " + Description + "\nDistributor's VAT: " + ProductVAT;
     }
 }

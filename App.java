@@ -44,6 +44,7 @@ public class App {
 
     HashMap<String, ArrayList<Advertisement>> carrierMem = new HashMap<String, ArrayList<Advertisement>>();
     HashMap<String, ArrayList<Advertisement>> productMem = new HashMap<String, ArrayList<Advertisement>>();
+    HashMap<Integer, AdvertisementType> codeMem = new HashMap<Integer, AdvertisementType>();
 
     for(Carrier c: _carrierList.myArray){
       carrierMem.put(c.getVAT(), new ArrayList<Advertisement>());
@@ -56,6 +57,10 @@ public class App {
       carrierMem.get(ad.getVAT()).add(ad);
       productMem.get(ad.getProductCode()).add(ad);
     }
+
+    for(AdvertisementType ty: _typeList.myArray) {
+      codeMem.put(ty.getCode(), ty);
+    }
     
     Scanner scan = new Scanner(System.in);
     greetUser();
@@ -67,13 +72,13 @@ public class App {
           _carrierList.insertCarrier(new Carrier(scan.next(),scan.next()));
           break;
         case 2:
-          System.out.println("Insert 1 for PrintedAd, 2 for RadioTVAd , 3 for WebAd");
-          int choice = scan.nextInt();
-            System.out.println("Insert description.");
-            String _Description = scan.nextLine();
-            System.out.println("Insert VAT of carrier.");
-            String _VAT = scan.next();
-          switch (choice) {
+          System.out.println("Insert 1 for PrintedAd type, 2 for RadioTVAdtype , 3 for WebAd type.");
+          int choice2 = scan.nextInt();
+          System.out.println("Insert description.");
+          String _Description = scan.nextLine();
+          System.out.println("Insert VAT of carrier.");
+          String _VAT = scan.next();
+          switch (choice2) {
             case 1:
               System.out.println("Insert cost of front page.");
               float _FrontPageCost = scan.nextFloat();
@@ -106,30 +111,66 @@ public class App {
           }
           break;
         case 3:
-          System.out.println("Insert 1 for PrintedAd, 2 for RadioTVAd , 3 for WebAd");
-          switch (scan.nextInt()) {
-            case 1:
-
-              break;
-            case 2:
-          
-              break;
-            case 3:
-
-              break;
+          _typeList.displayTypeList();
+          int _TypeCode = scan.nextInt();
+          _productList.displayProductList();
+          String _ProductCode = scan.next();
+          System.out.println("Insert duration of days");
+          int _Duration = scan.nextInt();
+          System.out.println("Insert reason.");
+          String _reason = scan.nextLine();
+          AdvertisementType _Type = codeMem.get(_TypeCode);
+          if (_Type instanceof PrintedAdType) {
+            System.out.println("Insert word count.");
+            int _wordCount = scan.nextInt();
+            System.out.println("Insert position.");
+            String _position = scan.next();
+            _adList.insertAd(new PrintedAd((PrintedAdType) _Type, _ProductCode, _reason, _Duration, _wordCount, _position));
+          } else if (_Type instanceof RadioTVAdType) {
+            System.out.println("Insert auto show. (true or false)");
+            boolean _autoshow = scan.nextBoolean();
+            System.out.println("Insert additional pages.");
+            int _additionalPages = scan.nextInt();
+            _adList.insertAd(new WebAd((WebAdType) _Type, _ProductCode, _reason, _Duration, _autoshow, _additionalPages));
+          } else {
+            System.out.println("Insert time zone.");
+            String _TimeZone = scan.next();
+            System.out.println("");
+            int _DurationSeconds = scan.nextInt();
+            _adList.insertAd(new RadioTVAd((RadioTVAdType) _Type, _ProductCode, _reason, _Duration, _TimeZone, _DurationSeconds));
           }
           break;
         case 4:
           _adList.displayAdList();
           break;
         case 5:
-
+          {
+          System.out.println("Insert the VAT of the carrier.");
+          String _VATC = scan.next();
+          for (Advertisement ad: carrierMem.get(_VATC)) {
+            System.out.println(ad);
+          }
           break;
+          }
         case 6:
-
+          {
+          System.out.println("Insert the VAT of the carrier.");
+          String _VATC = scan.next();
+          float sum = 0;
+          for (Advertisement ad: carrierMem.get(_VATC)) {
+            sum += ad.calculateCost();
+          }
+          System.out.println(sum);
           break;
+          }
         case 7:
-          
+          System.out.println("Insert the code of the product.");
+          String _Code = scan.next();
+          int count = 0;
+          for (Advertisement ad: carrierMem.get(_Code)) {
+            count++;
+          }
+          System.out.println(count);
           break;
         case 8:
           
@@ -142,10 +183,6 @@ public class App {
       answer = scan.nextInt();
     }
     scan.close();
-  
-  
-  
-  
   
   }
 }

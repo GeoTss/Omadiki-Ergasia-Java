@@ -10,4 +10,9 @@ public class productList {
     public ArrayList<Product> getArray() {
         return myList;
     }
+    public void displayProductList() {
+        for (Product pr: myList) {
+            System.out.println(pr);
+        }
+    }
 }
