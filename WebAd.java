@@ -1,9 +1,9 @@
 public class WebAd extends Advertisement{
-    protected boolean autoShow;
+    protected int autoShow;
     protected int additionalPages;
     protected WebAdType typeInfo;
 
-    WebAd(WebAdType _info, Product _product, String _reason, int _durationDays, boolean _autoShow, int _additionalPages){
+    WebAd(WebAdType _info, Product _product, String _reason, int _durationDays, int _autoShow, int _additionalPages){
         typeCode = _info.getCode();
         productCode = _product.getCode();
         reason = _reason;
@@ -13,11 +13,11 @@ public class WebAd extends Advertisement{
         additionalPages = _additionalPages;
 
         typeInfo = _info;
-        if(autoShow == false)
+        if(autoShow == 2)
             typeInfo.CostAutoShow = 0;
     }
 
-    WebAd(WebAdType _info, int _product, String _reason, int _durationDays, boolean _autoShow, int _additionalPages){
+    WebAd(WebAdType _info, int _product, String _reason, int _durationDays, int _autoShow, int _additionalPages){
         typeCode = _info.getCode();
         productCode = _product;
         reason = _reason;
@@ -27,7 +27,7 @@ public class WebAd extends Advertisement{
         additionalPages = _additionalPages;
 
         typeInfo = _info;
-        if(autoShow == false)
+        if(autoShow == 2)
             typeInfo.CostAutoShow = 0;
     }
 
