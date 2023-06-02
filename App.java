@@ -83,7 +83,6 @@ public class App {
     HashMap<String, ArrayList<Advertisement>> carrierMem = new HashMap<String, ArrayList<Advertisement>>();
     HashMap<Integer, ArrayList<Advertisement>> productMem = new HashMap<Integer, ArrayList<Advertisement>>();
     HashMap<Integer, AdvertisementType> codeMem = new HashMap<Integer, AdvertisementType>();
-    // HashMap<Integer, Product> productMem = new HashMap<Integer, Product>();
 
     for(AdvertisementType ty: _typeList.getArray())
       codeMem.put(ty.getCode(), ty);
