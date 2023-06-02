@@ -29,6 +29,9 @@ public class App {
   public static boolean checkAutoShow(int _autoshow) {
     return ((_autoshow >= 1) && (_autoshow <= 2));
   }
+  public static boolean checkChoice(int _choice) {
+    return ((_choice != 1) && (_choice != 2) && (_choice != 3));
+  }
   public static void wrongInput() {
     System.out.println("Wrong input please try again.");
   }
@@ -163,11 +166,9 @@ public class App {
           do{
             System.out.println("Insert 1 for PrintedAd type, 2 for RadioTVAdtype , 3 for WebAd type.");
             choice2 = scan.nextInt();
-          }while(choice2 != 1 && choice2 != 2 && choice2 != 3);
-
+          }while(!checkChoice(choice2));
           System.out.println("Insert description.");
           String _Description = scan.nextLine();
-
           String _VAT;
           do{
             System.out.println("Insert VAT of carrier.");
