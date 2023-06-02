@@ -54,29 +54,30 @@ public class App {
     _typeList.insertType(new WebAdType("Giannakhs", _carrierList.myArray.get(2), 29f, 43f, 10f));
     _typeList.insertType(new WebAdType("Giannaras", _carrierList.myArray.get(3), 8f, 11.880f, 9.11f));
     adList _adList = new adList();
-    _adList.insertAd(
-        new PrintedAd((PrintedAdType) _typeList.get(0), _productList.myList.get(0), "kys", 10, 100, 1));
     _adList
-        .insertAd(new PrintedAd((PrintedAdType) _typeList.get(1), _productList.myList.get(0), "syk", 8, 105, 0));
-    _adList.insertAd(new PrintedAd((PrintedAdType) _typeList.get(2), _productList.myList.get(1),
-        "i have commited several warcrimes", 5, 50, 2));
-    _adList.insertAd(
-        new PrintedAd((PrintedAdType) _typeList.get(2), _productList.myList.get(1), "no reason", 100, 2, 1));
-    _adList.insertAd(new RadioTVAd((RadioTVAdType) _typeList.get(4), _productList.myList.get(1), "i just had to do it",
-        10, 0, 60));
-    _adList.insertAd(new RadioTVAd((RadioTVAdType) _typeList.get(5), _productList.myList.get(2), "i am tired of typing",
-        30, 1, 10));
-    _adList.insertAd(new RadioTVAd((RadioTVAdType) _typeList.get(5), _productList.myList.get(3), "the mentor approves",
-        101, 2, 610));
-    _adList.insertAd(
-        new RadioTVAd((RadioTVAdType) _typeList.get(4), _productList.myList.get(3), "madclip leipeis", 1, 3, 17));
+        .insertAd(new PrintedAd((PrintedAdType) _typeList.get(0), _productList.myList.get(0), "kys",                               10,  100, 1));
     _adList
-        .insertAd(new WebAd((WebAdType) _typeList.get(8), _productList.myList.get(2), "javac App.java", 10, 1, 2));
-    _adList.insertAd(new WebAd((WebAdType) _typeList.get(6), _productList.myList.get(2), "java App", 11, 2, 10));
-    _adList.insertAd(new WebAd((WebAdType) _typeList.get(7), _productList.myList.get(3),
-        "App.java:44: error: constructor WebAd in class WebAd cannot be applied to given types;", 101, 1, 22));
-    _adList.insertAd(
-        new WebAd((WebAdType) _typeList.get(8), _productList.myList.get(3), "insert lenny face here", 165, 2, 80));
+        .insertAd(new PrintedAd((PrintedAdType) _typeList.get(1), _productList.myList.get(0), "syk",                               8,   105, 0));
+    _adList
+        .insertAd(new PrintedAd((PrintedAdType) _typeList.get(2), _productList.myList.get(1), "i have commited several warcrimes", 5,   50,  2));
+    _adList
+        .insertAd(new PrintedAd((PrintedAdType) _typeList.get(2), _productList.myList.get(1), "no reason",                         100, 2,   1));
+    _adList
+        .insertAd(new RadioTVAd((RadioTVAdType) _typeList.get(4), _productList.myList.get(1), "i just had to do it",  10,  0, 60));
+    _adList
+        .insertAd(new RadioTVAd((RadioTVAdType) _typeList.get(5), _productList.myList.get(2), "i am tired of typing", 30,  1, 10));
+    _adList
+        .insertAd(new RadioTVAd((RadioTVAdType) _typeList.get(5), _productList.myList.get(3), "the mentor approves",  101, 2, 610));
+    _adList
+        .insertAd(new RadioTVAd((RadioTVAdType) _typeList.get(4), _productList.myList.get(3), "madclip leipeis",      1,   3, 17));
+    _adList
+        .insertAd(new WebAd((WebAdType)         _typeList.get(8), _productList.myList.get(2), "javac App.java",         10,  1, 2));
+    _adList
+        .insertAd(new WebAd((WebAdType)         _typeList.get(6), _productList.myList.get(2), "java App",               11,  2, 10));
+    _adList
+        .insertAd(new WebAd((WebAdType)         _typeList.get(7), _productList.myList.get(3), "App.java:44: error",     101, 1, 22));
+    _adList
+        .insertAd(new WebAd((WebAdType)         _typeList.get(8), _productList.myList.get(3), "insert lenny face here", 165, 2, 80));
 
     HashMap<String, ArrayList<Advertisement>> carrierMem = new HashMap<String, ArrayList<Advertisement>>();
     HashMap<Integer, ArrayList<Advertisement>> productMem = new HashMap<Integer, ArrayList<Advertisement>>();
