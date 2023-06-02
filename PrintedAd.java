@@ -47,7 +47,12 @@ class PrintedAd extends Advertisement{
         }
     }
 
+    void showCostFormula(){
+        System.out.println("wordCount * costInPosition * durationInDays = " + wordCount + " * " + costInPos + " * " + durationDays + " = " + (wordCount * costInPos * durationDays));
+    }
+
     float calculateCost(){
+        showCostFormula();
         return wordCount * costInPos * durationDays;
     }
 

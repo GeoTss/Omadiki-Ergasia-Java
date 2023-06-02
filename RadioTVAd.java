@@ -55,7 +55,11 @@ class RadioTVAd extends Advertisement{
         }
     }
 
+    void showCostFormula(){
+        System.out.println("durationInSecondsForAD * timeZoneCostPerSecond * durationInDays = " + durationSeconds + " * " + timeZoneCPS + " * " + durationDays + " = " + (durationSeconds * timeZoneCPS * durationDays));
+    }
     float calculateCost(){
+        showCostFormula();
         return durationSeconds * timeZoneCPS * durationDays;
     }
 

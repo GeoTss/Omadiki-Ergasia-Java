@@ -108,14 +108,24 @@ public class App {
         case 1:
           System.out.println("Insert VAT and Name of the new Carrier");
           _carrierList.insertCarrier(new Carrier(scan.next(), scan.next()));
+          carrierMem.put(_carrierList.get(_carrierList.getArray().size() - 1).getVAT(), new ArrayList<Advertisement>());
           break;
         case 2:
-          System.out.println("Insert 1 for PrintedAd type, 2 for RadioTVAdtype , 3 for WebAd type.");
-          int choice2 = scan.nextInt();
+          int choice2;
+          do{
+            System.out.println("Insert 1 for PrintedAd type, 2 for RadioTVAdtype , 3 for WebAd type.");
+            choice2 = scan.nextInt();
+          }while(choice2 != 1 && choice2 != 2 && choice2 != 3);
+
           System.out.println("Insert description.");
           String _Description = scan.nextLine();
-          System.out.println("Insert VAT of carrier.");
-          String _VAT = scan.next();
+
+          String _VAT;
+          do{
+            System.out.println("Insert VAT of carrier.");
+            _VAT = scan.next();
+          }while(!carrierMem.containsKey(_VAT));
+
           switch (choice2) {
             case 1:
               _typeList.insertType(new PrintedAdType(_Description, _VAT, scan));
@@ -130,26 +140,34 @@ public class App {
               wrongInput();
               break;
           }
+
+          codeMem.put(_typeList.get(_typeList.getArray().size() - 1).getCode(), _typeList.get(_typeList.getArray().size() - 1));
           break;
         case 3:
           _typeList.displayTypeList();
           int _TypeCode;
           do {
+            System.out.print("Enter type code: ");
             _TypeCode = scan.nextInt();
-          } while (!codeMem.containsKey(_TypeCode));       
-            _productList.displayProductList();
+          } while (!codeMem.containsKey(_TypeCode));  
+
+          _productList.displayProductList();
           int _ProductCode;
           do {
             _ProductCode = scan.nextInt();
           } while (!productMem.containsKey(_ProductCode));
+
           System.out.println("Insert duration of days");
           int _Duration;
           do {   
             _Duration = scan.nextInt();
           } while (!checkDuration(_Duration));
+
           System.out.println("Insert reason.");
           String _reason = scan.nextLine();
+
           AdvertisementType _Type = codeMem.get(_TypeCode);
+
           if (_Type instanceof PrintedAdType) {
             System.out.println("Insert word count.");
             int _wordCount;
@@ -163,7 +181,8 @@ public class App {
             } while (!checkPosition(_position));
             _adList.insertAd(
                 new PrintedAd((PrintedAdType) _Type, _ProductCode, _reason, _Duration, _wordCount, _position));
-          } else if (_Type instanceof RadioTVAdType) {
+          } 
+          else if (_Type instanceof RadioTVAdType) {
             System.out.println("Insert auto show.");
             int _autoshow;
             do {
@@ -176,7 +195,8 @@ public class App {
             } while (!checkAdditionalPages(_additionalPages));
               _adList
                 .insertAd(new WebAd((WebAdType) _Type, _ProductCode, _reason, _Duration, _autoshow, _additionalPages));
-          } else if (_Type instanceof WebAdType){
+          } 
+          else if (_Type instanceof WebAdType){
             System.out.println("Insert time zone.");
             int _TimeZone;
             do {
@@ -186,9 +206,13 @@ public class App {
             int _DurationSeconds = scan.nextInt();
             _adList.insertAd(
                 new RadioTVAd((RadioTVAdType) _Type, _ProductCode, _reason, _Duration, _TimeZone, _DurationSeconds));
-          } else {
+          } 
+          else
             wrongInput();
-          }
+
+          carrierMem.get(_Type.getCarrierVAT()).add(_adList.get(_adList.getArray().size()-1));
+          productMem.get(_ProductCode).add(_adList.get(_adList.getArray().size()-1));
+
           break;
         case 4:
           _adList.displayAdList();
@@ -200,23 +224,26 @@ public class App {
             vat = scan.next();
           } while (!carrierMem.containsKey(vat));
 
-          for (Advertisement ad : carrierMem.get(vat)) {
+          for (Advertisement ad : carrierMem.get(vat))
             System.out.println(ad);
-          }
+          
           break;
 
         case 6:
           String vatCalcCost;
           do{
-          System.out.println("Insert the VAT of the carrier.");
-          vatCalcCost = scan.next();
+            System.out.print("Insert the VAT of the carrier: ");
+            vatCalcCost = scan.next();
           }while(!carrierMem.containsKey(vatCalcCost));
 
           float sum = 0;
-          for (Advertisement ad : carrierMem.get(vatCalcCost)) {
+          for (Advertisement ad : carrierMem.get(vatCalcCost)){
+            System.out.println(ad);
             sum += ad.calculateCost();
+            System.out.println("\n-----------------------------------------------");
           }
-          System.out.println(sum);
+          
+          System.out.println("Total cost of all advertisements of this carrier is: " + sum + "\n");
           break;
 
         case 7:
@@ -238,8 +265,7 @@ public class App {
               pr = _pr;
               count = _count;
             }
-          }
-          ;
+          };
 
           ArrayList<productPair> productCount = new ArrayList<productPair>();
           for (Product pr : _productList.myList)
@@ -251,11 +277,27 @@ public class App {
 
           for (productPair p : productCount) {
             System.out.println("Product:\n" + p.getProduct() + "\nCount: " + p.getCount() + "\n");
-            System.out.println("-----------------------------------------------");
+            System.out.println("\n-----------------------------------------------");
           }
-
           break;
+          
         case 8:
+          _productList.displayProductList();
+          int prCode;
+          do{
+            System.out.print("Enter product code: ");
+            prCode = scan.nextInt();
+          }while(!productMem.containsKey(prCode));
+
+          float _sum = 0;
+          System.out.println("\n-----------------------------------------------");
+          for(Advertisement ad: productMem.get(prCode)){
+            System.out.println(ad);
+            _sum += ad.calculateCost();
+            System.out.println("\n-----------------------------------------------");
+          }
+          
+          System.out.println("Total cost for all advertisements is: " + _sum);
           break;
         case 9:
           class CostPair {
@@ -275,25 +317,28 @@ public class App {
               totalCost = _totalCost;
             }
           };
-
+          
           ArrayList<CostPair> productCost = new ArrayList<CostPair>();
           for (Product pr : _productList.myList) {
-            float _sum = 0;
-            for (Advertisement ad : productMem.get(pr.getCode()))
-              _sum += ad.calculateCost();
-            productCost.add(new CostPair(pr, _sum));
+            float _Sum = 0;
+            for (Advertisement ad : productMem.get(pr.getCode())){
+              System.out.println(ad);
+              _Sum += ad.calculateCost();
+              System.out.println("\n-----------------------------------------------");
+            }
+            productCost.add(new CostPair(pr, _Sum));
           }
 
           Comparator<CostPair> CostPairComparator = (CostPair p1, CostPair p2) -> Float.compare(p2.getTotalCost(),
               p1.getTotalCost());
           productCost.sort(CostPairComparator);
 
-          for (CostPair p : productCost) {
+          for (CostPair p: productCost) {
             System.out.println("Product:\n" + p.getProduct() + "\nTotal cost: " + p.getTotalCost() + "\n");
             System.out.println("-----------------------------------------------");
           }
-
           break;
+
         default:
           wrongInput();
           break;
