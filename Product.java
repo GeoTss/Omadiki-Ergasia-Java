@@ -1,14 +1,13 @@
 class Product {
-    private String Code;
+    static private int currCode = 0;
+    private int Code;
     private String Description;
     private String ProductVAT;
-    Product(String _Code, String _Description, String _ProductVAT) {
-        Code = _Code;
+    
+    Product(String _Description, String _ProductVAT) {
+        Code = currCode++;
         Description = _Description;
         ProductVAT = _ProductVAT;
-    }
-    void setCode(String _Code) {
-        Code = _Code;
     }
     void setDescription(String _Description) {
         Description = _Description;
@@ -16,7 +15,7 @@ class Product {
     void setProductVAT(String _ProductVAT) {
         ProductVAT = _ProductVAT;
     }
-    String getCode() {
+    int getCode() {
         return Code;
     }
     String getDescription() {

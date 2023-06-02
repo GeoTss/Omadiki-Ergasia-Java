@@ -8,7 +8,6 @@ public class WebAd extends Advertisement{
         productCode = _product.getCode();
         reason = _reason;
         durationDays = _durationDays;
-        VAT = _info.getCarrierVAT();
         
         autoShow = _autoShow;
         additionalPages = _additionalPages;
@@ -18,12 +17,11 @@ public class WebAd extends Advertisement{
             typeInfo.CostAutoShow = 0;
     }
 
-    WebAd(WebAdType _info, String _product, String _reason, int _durationDays, boolean _autoShow, int _additionalPages){
+    WebAd(WebAdType _info, int _product, String _reason, int _durationDays, boolean _autoShow, int _additionalPages){
         typeCode = _info.getCode();
         productCode = _product;
         reason = _reason;
         durationDays = _durationDays;
-        VAT = _info.getCarrierVAT();
         
         autoShow = _autoShow;
         additionalPages = _additionalPages;
