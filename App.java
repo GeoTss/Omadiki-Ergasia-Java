@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -83,21 +84,19 @@ public class App {
     HashMap<Integer, AdvertisementType> codeMem = new HashMap<Integer, AdvertisementType>();
     // HashMap<Integer, Product> productMem = new HashMap<Integer, Product>();
 
+    for(AdvertisementType ty: _typeList.getArray())
+      codeMem.put(ty.getCode(), ty);
 
-    for (Carrier c : _carrierList.myArray) {
+    for (Carrier c : _carrierList.getArray()) {
       carrierMem.put(c.getVAT(), new ArrayList<Advertisement>());
     }
 
     for (Product p : _productList.myList)
       productMem.put(p.getCode(), new ArrayList<Advertisement>());
 
-    for (Advertisement ad : _adList.myArrayList) {
+    for (Advertisement ad : _adList.getArray()) {
       carrierMem.get(codeMem.get(ad.getTypeCode()).getCarrierVAT()).add(ad);
       productMem.get(ad.getProductCode()).add(ad);
-    }
-
-    for (AdvertisementType ty : _typeList.myArray) {
-      codeMem.put(ty.getCode(), ty);
     }
 
     Scanner scan = new Scanner(System.in);
@@ -220,18 +219,78 @@ public class App {
           break;
 
         case 7:
-          System.out.println("Insert the code of the product.");
-          String _Code = scan.next();
-          int count = 0;
-          for (Advertisement ad : carrierMem.get(_Code)) {
-            count++;
+          // System.out.println("Insert the code of the product.");
+          // int code = scan.nextInt();
+          class productPair {
+            private Product pr;
+            private int count;
+
+            Product getProduct() {
+              return pr;
+            }
+
+            int getCount() {
+              return count;
+            }
+
+            productPair(Product _pr, int _count) {
+              pr = _pr;
+              count = _count;
+            }
           }
-          System.out.println(count);
-          break;
-        case 8:
+          ;
+
+          ArrayList<productPair> productCount = new ArrayList<productPair>();
+          for (Product pr : _productList.myList)
+            productCount.add(new productPair(pr, productMem.get(pr.getCode()).size()));
+
+          Comparator<productPair> productPairComparator = (productPair p1, productPair p2) -> Integer
+              .compare(p2.getCount(), p1.getCount());
+          productCount.sort(productPairComparator);
+
+          for (productPair p : productCount) {
+            System.out.println("Product:\n" + p.getProduct() + "\nCount: " + p.getCount() + "\n");
+            System.out.println("-----------------------------------------------");
+          }
 
           break;
+        case 8:
+          break;
         case 9:
+          class CostPair {
+            private Product pr;
+            private float totalCost;
+
+            Product getProduct() {
+              return pr;
+            }
+
+            float getTotalCost() {
+              return totalCost;
+            }
+
+            CostPair(Product _pr, float _totalCost) {
+              pr = _pr;
+              totalCost = _totalCost;
+            }
+          };
+
+          ArrayList<CostPair> productCost = new ArrayList<CostPair>();
+          for (Product pr : _productList.myList) {
+            float _sum = 0;
+            for (Advertisement ad : productMem.get(pr.getCode()))
+              _sum += ad.calculateCost();
+            productCost.add(new CostPair(pr, _sum));
+          }
+
+          Comparator<CostPair> CostPairComparator = (CostPair p1, CostPair p2) -> Float.compare(p2.getTotalCost(),
+              p1.getTotalCost());
+          productCost.sort(CostPairComparator);
+
+          for (CostPair p : productCost) {
+            System.out.println("Product:\n" + p.getProduct() + "\nTotal cost: " + p.getTotalCost() + "\n");
+            System.out.println("-----------------------------------------------");
+          }
 
           break;
         default:
