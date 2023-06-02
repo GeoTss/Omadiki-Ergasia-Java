@@ -24,5 +24,6 @@ abstract class Advertisement{
         return "Advertisement type code: " + typeCode + "\nProduct code: " + productCode + "\nAppearence duration in days: " + durationDays + "\nReason: " + reason;
     }
 
+    abstract void showCostFormula();
     abstract float calculateCost();
 }

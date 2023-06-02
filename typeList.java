@@ -6,7 +6,7 @@ public class typeList {
     }
     public void displayTypeList() {
         for (int i = 0; i < myArray.size(); i++) {
-            System.out.println(myArray.get(i));
+            System.out.println(myArray.get(i) + "\n");
         }
     }
     public AdvertisementType get(int index) {

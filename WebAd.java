@@ -31,7 +31,11 @@ public class WebAd extends Advertisement{
             typeInfo.CostAutoShow = 0;
     }
 
+    void showCostFormula(){
+        System.out.println("CostPerDay * durationInDays + CostForAutoShow (if activated) + CostPerAdditionalPages * AdditionalPages = " + typeInfo.getCostPerDay() + " * " + durationDays + " * " + typeInfo.getCostAutoShow() + " + " + typeInfo.getCostPerAdditionalPage() + " * " + additionalPages + " = " + (typeInfo.getCostPerDay() * durationDays + typeInfo.getCostAutoShow() + typeInfo.getCostPerAdditionalPage() * additionalPages));
+    }
     float calculateCost(){
+        showCostFormula();
         return typeInfo.getCostPerDay() * durationDays + typeInfo.getCostAutoShow() + typeInfo.getCostPerAdditionalPage() * additionalPages;
     }
 
