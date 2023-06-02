@@ -1,5 +1,7 @@
+import java.util.Scanner;
+
 class WebAdType extends AdvertisementType{
-    private static int currCode = 100;
+    // private static int currCode = 100;
     protected float CostPerDay, CostPerAdditionalPage, CostAutoShow;
 
     WebAdType(String _description, Carrier _carrier, float _CostPerDay, float _CostPerAdditionalPage, float _CostAutoShow){
@@ -20,6 +22,19 @@ class WebAdType extends AdvertisementType{
         CostPerDay = _CostPerDay;
         CostPerAdditionalPage = _CostPerAdditionalPage;
         CostAutoShow = _CostAutoShow;
+    }
+
+    WebAdType(String _description, String _carrier, Scanner scan){
+        code = currCode++;
+        carrier_VAT = _carrier;
+        description = _description;
+
+        System.out.println("Insert cost per day.");
+        CostPerDay = scan.nextFloat();
+        System.out.println("Insert cost per additional page.");
+        CostPerAdditionalPage = scan.nextFloat();
+        System.out.println("Insert cost of auto show.");
+        CostAutoShow = scan.nextFloat();
     }
 
     void setCostPerDay(float _CostPerDay){

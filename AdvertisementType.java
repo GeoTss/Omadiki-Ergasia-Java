@@ -1,4 +1,5 @@
 abstract public class AdvertisementType{
+    protected static int currCode = 100;
     protected int code;
     protected String description, carrier_VAT;
 
@@ -9,4 +10,5 @@ abstract public class AdvertisementType{
     public String toString(){
         return "Code: " + code + "\nDescription: " + description; 
     }
+
 }

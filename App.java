@@ -80,33 +80,13 @@ public class App {
           String _VAT = scan.next();
           switch (choice2) {
             case 1:
-              System.out.println("Insert cost of front page.");
-              float _FrontPageCost = scan.nextFloat();
-              System.out.println("Insert cost of the middle page.");
-              float _MiddlePageCost = scan.nextFloat();
-              System.out.println("Insert cost of the back page");
-              float _BackPageCost = scan.nextFloat();
-              _typeList.insertType(new PrintedAdType(_Description, _VAT, _FrontPageCost, _MiddlePageCost, _BackPageCost));
+              _typeList.insertType(new PrintedAdType(_Description, _VAT, scan));
               break;
             case 2:
-              System.out.println("Insert cost per second in the morning.");
-              float _cpsMorning = scan.nextFloat();
-              System.out.println("Insert cost per second in the midday.");
-              float _cpsMidday = scan.nextFloat();
-              System.out.println("Insert cost per second in the evening.");
-              float _cpsEvening = scan.nextFloat();
-              System.out.println("Insert cost per second in the night.");
-              float _cpsNight = scan.nextFloat();
-              _typeList.insertType(new RadioTVAdType(_Description, _VAT, _cpsMorning, _cpsMidday, _cpsEvening, _cpsNight));
+              _typeList.insertType(new RadioTVAdType(_Description, _VAT, scan));
               break;
             case 3:
-              System.out.println("Insert cost per day.");
-              float _CostPerDay = scan.nextFloat();
-              System.out.println("Insert cost per additional page.");
-              float _CostPerAddPage = scan.nextFloat();
-              System.out.println("Insert cost of auto show.");
-              float _CostAutoShow = scan.nextFloat();
-              _typeList.insertType(new WebAdType(_Description, _VAT, _CostPerDay, _CostPerAddPage, _CostAutoShow));
+              _typeList.insertType(new WebAdType(_Description, _VAT, scan));
               break;
           }
           break;
