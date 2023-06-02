@@ -29,6 +29,9 @@ public class App {
   public static boolean checkAutoShow(int _autoshow) {
     return ((_autoshow >= 1) && (_autoshow <= 2));
   }
+  public static boolean checkChoice(int _choice) {
+    return ((_choice != 1) && (_choice != 2) && (_choice != 3));
+  }
   public static void wrongInput() {
     System.out.println("Wrong input please try again.");
   }
@@ -45,40 +48,88 @@ public class App {
     _productList.insertProduct(new Product("null", "6969"));
     _productList.insertProduct(new Product("Pays off", "1312"));
     typeList _typeList = new typeList();
-    _typeList.insertType(new PrintedAdType("get rekt", _carrierList.myArray.get(1), 3.14f, 6.28f, 9.42f));
+    _typeList.insertType(new PrintedAdType("get rekt",                                       _carrierList.myArray.get(1), 3.14f, 6.28f, 9.42f));
     _typeList.insertType(new PrintedAdType("I am not a god, i am not a king, i am... worse", _carrierList.myArray.get(0), 3.03f, 8.18f, 10.02f));
-    _typeList.insertType(new PrintedAdType("frontises smr", _carrierList.myArray.get(0), 15f, 60f, 28f));
-    _typeList.insertType(new RadioTVAdType("o pappas o paxus", _carrierList.myArray.get(0), 1f, 2f, 3f, 4f));
-    _typeList.insertType(new RadioTVAdType("paei o palios o xronos", _carrierList.myArray.get(1), 2f, 4f, 6f, 8f));
-    _typeList.insertType(new RadioTVAdType("ela re ti leei", _carrierList.myArray.get(1), 5f, 10f, 15f, 20f));
-    _typeList.insertType(new WebAdType("Giannhs", _carrierList.myArray.get(2), 2f, 6f, 10f));
-    _typeList.insertType(new WebAdType("Giannakhs", _carrierList.myArray.get(2), 29f, 43f, 10f));
-    _typeList.insertType(new WebAdType("Giannaras", _carrierList.myArray.get(3), 8f, 11.880f, 9.11f));
+    _typeList.insertType(new PrintedAdType("frontises smr",                                  _carrierList.myArray.get(0), 15f,   60f,   28f));
+    _typeList.insertType(new RadioTVAdType("o pappas o paxus",                               _carrierList.myArray.get(0),  1f, 2f,  3f,   4f));
+    _typeList.insertType(new RadioTVAdType("paei o palios o xronos",                         _carrierList.myArray.get(1),  2f, 4f,  6f,   8f));
+    _typeList.insertType(new RadioTVAdType("ela re ti leei",                                 _carrierList.myArray.get(1),  5f, 10f, 15f,  20f));
+    _typeList.insertType(new WebAdType(    "Giannhs",                                        _carrierList.myArray.get(2), 2f,   6f,      10f));
+    _typeList.insertType(new WebAdType(    "Giannakhs",                                      _carrierList.myArray.get(2), 29f,  43f,     10f));
+    _typeList.insertType(new WebAdType(    "Giannaras",                                      _carrierList.myArray.get(3), 8f,   11.880f, 9.11f));
     adList _adList = new adList();
     _adList
-        .insertAd(new PrintedAd((PrintedAdType) _typeList.get(0), _productList.myList.get(0), "kys",                               10,  100, 1));
+        .insertAd(new PrintedAd((PrintedAdType) _typeList.get(0), _productList.myList.get(0), "kys",                               10,  100, 1));       //1 0 1
     _adList
-        .insertAd(new PrintedAd((PrintedAdType) _typeList.get(1), _productList.myList.get(0), "syk",                               8,   105, 0));
+        .insertAd(new PrintedAd((PrintedAdType) _typeList.get(0), _productList.myList.get(1), "ysk",                               20,  110, 2));       //2 0 2
     _adList
-        .insertAd(new PrintedAd((PrintedAdType) _typeList.get(2), _productList.myList.get(1), "i have commited several warcrimes", 5,   50,  2));
+        .insertAd(new PrintedAd((PrintedAdType) _typeList.get(0), _productList.myList.get(2), "sky",                               8,   105, 0));       //3 0 3 
     _adList
-        .insertAd(new PrintedAd((PrintedAdType) _typeList.get(2), _productList.myList.get(1), "no reason",                         100, 2,   1));
+        .insertAd(new PrintedAd((PrintedAdType) _typeList.get(0), _productList.myList.get(3), "syk",                               18,  70,  2));       //4 0 4
     _adList
-        .insertAd(new RadioTVAd((RadioTVAdType) _typeList.get(4), _productList.myList.get(1), "i just had to do it",  10,  0, 60));
+        .insertAd(new PrintedAd((PrintedAdType) _typeList.get(1), _productList.myList.get(0), "i have commited several warcrimes", 5,   50,  2));       //1 1 5
     _adList
-        .insertAd(new RadioTVAd((RadioTVAdType) _typeList.get(5), _productList.myList.get(2), "i am tired of typing", 30,  1, 10));
+        .insertAd(new PrintedAd((PrintedAdType) _typeList.get(1), _productList.myList.get(1), "no i haven't",                      9,   20,  1));       //2 1 6
     _adList
-        .insertAd(new RadioTVAd((RadioTVAdType) _typeList.get(5), _productList.myList.get(3), "the mentor approves",  101, 2, 610));
+        .insertAd(new PrintedAd((PrintedAdType) _typeList.get(1), _productList.myList.get(2), "yes you have",                      76,  10,  0));       //3 1 7
     _adList
-        .insertAd(new RadioTVAd((RadioTVAdType) _typeList.get(4), _productList.myList.get(3), "madclip leipeis",      1,   3, 17));
+        .insertAd(new PrintedAd((PrintedAdType) _typeList.get(1), _productList.myList.get(3), "you are lying",                     14,  40,  2));       //4 1 8
     _adList
-        .insertAd(new WebAd((WebAdType)         _typeList.get(8), _productList.myList.get(2), "javac App.java",         10,  1, 2));
+        .insertAd(new PrintedAd((PrintedAdType) _typeList.get(2), _productList.myList.get(0), "no reason",                         100, 2,   0));       //1 2 9
     _adList
-        .insertAd(new WebAd((WebAdType)         _typeList.get(6), _productList.myList.get(2), "java App",               11,  2, 10));
+        .insertAd(new PrintedAd((PrintedAdType) _typeList.get(2), _productList.myList.get(1), "many reasons",                      50,  10,  1));       //2 2 10
     _adList
-        .insertAd(new WebAd((WebAdType)         _typeList.get(7), _productList.myList.get(3), "App.java:44: error",     101, 1, 22));
+        .insertAd(new PrintedAd((PrintedAdType) _typeList.get(2), _productList.myList.get(2), "its complicated",                   200, 57,  2));       //3 2 11
     _adList
-        .insertAd(new WebAd((WebAdType)         _typeList.get(8), _productList.myList.get(3), "insert lenny face here", 165, 2, 80));
+        .insertAd(new PrintedAd((PrintedAdType) _typeList.get(2), _productList.myList.get(3), "absolutely no reason",              100, 10,  0));       //4 2 12
+    _adList
+        .insertAd(new RadioTVAd((RadioTVAdType) _typeList.get(3), _productList.myList.get(0), "i just had to do it",               10,  0, 60));  //1 3 13
+    _adList
+        .insertAd(new RadioTVAd((RadioTVAdType) _typeList.get(3), _productList.myList.get(1), "there was no other choice",         245, 2, 100)); //2 3 14
+    _adList
+        .insertAd(new RadioTVAd((RadioTVAdType) _typeList.get(3), _productList.myList.get(2), "not a joke anymore",                30,  0, 65));  //3 3 15
+    _adList
+        .insertAd(new RadioTVAd((RadioTVAdType) _typeList.get(3), _productList.myList.get(3), "...",                               10,  3, 30));  //4 3 16
+    _adList
+        .insertAd(new RadioTVAd((RadioTVAdType) _typeList.get(4), _productList.myList.get(0), "i am tired of typing",              30,  1, 10));  //1 4 17
+    _adList
+        .insertAd(new RadioTVAd((RadioTVAdType) _typeList.get(4), _productList.myList.get(1), "this is getting boring",            60,  2, 20));  //2 4 18
+    _adList
+        .insertAd(new RadioTVAd((RadioTVAdType) _typeList.get(4), _productList.myList.get(2), "i am running out of ideas",         100, 0, 5));   //3 4 19
+    _adList
+        .insertAd(new RadioTVAd((RadioTVAdType) _typeList.get(4), _productList.myList.get(3), "i got bored",                       40,  1, 10));  //4 4 20
+    _adList
+        .insertAd(new RadioTVAd((RadioTVAdType) _typeList.get(5), _productList.myList.get(0), "the mentor is sleeping",            30,  2, 60));  //1 5 21
+    _adList
+        .insertAd(new RadioTVAd((RadioTVAdType) _typeList.get(5), _productList.myList.get(1), "the mentor is watching",            5,   3, 110)); //2 5 22
+    _adList
+        .insertAd(new RadioTVAd((RadioTVAdType) _typeList.get(5), _productList.myList.get(2), "the mentor is thinking",            35,  0, 12));  //3 5 23
+    _adList
+        .insertAd(new RadioTVAd((RadioTVAdType) _typeList.get(5), _productList.myList.get(3), "the mentor approves",               101, 3, 610)); //4 5 24
+    _adList
+        .insertAd(new WebAd((WebAdType)         _typeList.get(6), _productList.myList.get(0), "madclip leipeis",                   1,   1, 17));  //1 6 25
+    _adList
+        .insertAd(new WebAd((WebAdType)         _typeList.get(6), _productList.myList.get(1), "light mono re",                     5,   2, 60));  //2 6 26
+    _adList
+        .insertAd(new WebAd((WebAdType)         _typeList.get(6), _productList.myList.get(2), "o snik koitazei",                   10,  2, 127)); //3 6 27
+    _adList
+        .insertAd(new WebAd((WebAdType)         _typeList.get(6), _productList.myList.get(3), "akoma leipes re",                   2,   1, 65));  //4 6 28
+    _adList
+        .insertAd(new WebAd((WebAdType)         _typeList.get(7), _productList.myList.get(0), "javac App.java",                    10,  1, 2));   //1 7 29
+    _adList
+        .insertAd(new WebAd((WebAdType)         _typeList.get(7), _productList.myList.get(1), "java App",                          11,  2, 10));  //2 7 30
+    _adList
+        .insertAd(new WebAd((WebAdType)         _typeList.get(7), _productList.myList.get(2), "App.java:44: error",                101, 1, 22));  //3 7 31
+    _adList
+        .insertAd(new WebAd((WebAdType)         _typeList.get(7), _productList.myList.get(3), "no more java",                      165, 2, 80));  //4 7 32
+    _adList
+        .insertAd(new WebAd((WebAdType)         _typeList.get(8), _productList.myList.get(0), "advertisements...",                 100, 1, 88));  //1 8 33
+    _adList
+        .insertAd(new WebAd((WebAdType)         _typeList.get(8), _productList.myList.get(1), "are...",                            105, 2, 8));   //2 8 34
+    _adList 
+        .insertAd(new WebAd((WebAdType)         _typeList.get(8), _productList.myList.get(2), "not...",                            15,  1, 10));  //3 8 35
+    _adList
+        .insertAd(new WebAd((WebAdType)         _typeList.get(8), _productList.myList.get(3), "my cup of tea...",                  95,  2, 60));  //4 8 36
 
     HashMap<String, ArrayList<Advertisement>> carrierMem = new HashMap<String, ArrayList<Advertisement>>();
     HashMap<Integer, ArrayList<Advertisement>> productMem = new HashMap<Integer, ArrayList<Advertisement>>();
@@ -114,11 +165,9 @@ public class App {
           do{
             System.out.println("Insert 1 for PrintedAd type, 2 for RadioTVAdtype , 3 for WebAd type.");
             choice2 = scan.nextInt();
-          }while(choice2 != 1 && choice2 != 2 && choice2 != 3);
-
+          }while(!checkChoice(choice2));
           System.out.println("Insert description.");
           String _Description = scan.nextLine();
-
           String _VAT;
           do{
             System.out.println("Insert VAT of carrier.");
