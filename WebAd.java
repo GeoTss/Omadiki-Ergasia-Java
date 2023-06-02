@@ -13,7 +13,7 @@ public class WebAd extends Advertisement{
         additionalPages = _additionalPages;
 
         typeInfo = _info;
-        if(autoShow == 2)
+        if(autoShow == 0)
             typeInfo.CostAutoShow = 0;
     }
 
@@ -27,7 +27,7 @@ public class WebAd extends Advertisement{
         additionalPages = _additionalPages;
 
         typeInfo = _info;
-        if(autoShow == 2)
+        if(autoShow == 0)
             typeInfo.CostAutoShow = 0;
     }
 

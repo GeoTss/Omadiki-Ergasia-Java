@@ -27,7 +27,7 @@ public class App {
     return (_durationSeconds > 0); 
   }
   public static boolean checkAutoShow(int _autoshow) {
-    return ((_autoshow >= 1) && (_autoshow <= 2));
+    return ((_autoshow >= 0) && (_autoshow <= 1));
   }
   public static boolean checkChoice(int _choice) {
     return ((_choice != 1) && (_choice != 2) && (_choice != 3));
@@ -232,7 +232,7 @@ public class App {
                 new PrintedAd((PrintedAdType) _Type, _ProductCode, _reason, _Duration, _wordCount, _position));
           } 
           else if (_Type instanceof RadioTVAdType) {
-            System.out.println("Insert auto show.");
+            System.out.println("Insert auto show. (1 for Yes/0 for No)");
             int _autoshow;
             do {
               _autoshow = scan.nextInt();
