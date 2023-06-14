@@ -6,6 +6,8 @@ public class PrintedAdType extends AdvertisementType {
     protected float costMid;
     protected float costBack;
 
+    PrintedAdType() {};
+
     PrintedAdType(String _description, Carrier _carrier, float _costFront, float _costMid, float _costBack) {
         code = currCode++;
         carrier_VAT = _carrier.getVAT();
@@ -39,15 +41,15 @@ public class PrintedAdType extends AdvertisementType {
         costBack = scan.nextFloat();
     }
 
-    void setCostFront(int costFront) {
+    void setCostFront(float costFront) {
         this.costFront = costFront;
     }
 
-    void setCostMid(int costMid) {
+    void setCostMid(float costMid) {
         this.costMid = costMid;
     }
 
-    void setCostBack(int costBack) {
+    void setCostBack(float costBack) {
         this.costBack = costBack;
     }
 

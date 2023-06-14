@@ -4,6 +4,8 @@ class WebAdType extends AdvertisementType{
     // private static int currCode = 100;
     protected float CostPerDay, CostPerAdditionalPage, CostAutoShow;
 
+    WebAdType() {}
+
     WebAdType(String _description, Carrier _carrier, float _CostPerDay, float _CostPerAdditionalPage, float _CostAutoShow){
         code = currCode++;
         carrier_VAT = _carrier.getVAT();

@@ -1,0 +1,13 @@
+ADVTYPE_LIST
+{
+    ADVTYPE
+    {
+        TYPE Print
+        CODE 1001
+        DECSR “BOOK 1”
+        AFM 055556677
+        COST_FRONT 102.3
+        COST_MID    76.91
+        COST_BACK   87.49
+    }
+}
