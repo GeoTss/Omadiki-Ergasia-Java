@@ -46,11 +46,11 @@ public class productParser extends Parser<Product> {
 
                             lineTokens = new StringTokenizer(line);
                             token = lineTokens.nextToken();
-                            if(token.equals("DESCR")){
+                            if(token.trim().toUpperCase().equals("DESCR")){
                                 lineTokens.nextToken("\"");
                                 descr = lineTokens.nextToken("\"");
                             }
-                            else if(token.equals("NAME"))
+                            else if(token.trim().toUpperCase().equals("NAME"))
                                 name = lineTokens.nextToken();
                         }
 

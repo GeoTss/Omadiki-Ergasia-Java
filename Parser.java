@@ -5,5 +5,10 @@ abstract public class Parser<T> {
 
     ArrayList<T> getParsedOutput() { return parsedOutput; }
 
+    void printParsedOutput(){
+        for(T elem: parsedOutput)
+            System.out.println(elem);
+    }
+
     abstract void parse(String filepath);
 }

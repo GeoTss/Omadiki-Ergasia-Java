@@ -2,10 +2,52 @@ ADVTYPE_LIST
 {
     ADVTYPE
     {
-        TYPE Print
+        TYPE PRINT
         CODE 1001
-        DECSR “BOOK 1”
+        DESCR "BOOK 1"
         AFM 055556677
+        COST_FRONT 102.3
+        COST_MID    76.91
+        COST_BACK   87.49
+    }
+
+    ADVTYPE
+    {
+        TYPE RADIO
+        CODE 1002
+        DESCR "TSOUKALAS"
+        AFM 043827642387
+        CPS_MORNING 107.832
+        CPS_MIDDAY 85.64
+        CPS_EVENING 78.5
+        CPS_NIGHT 81.763
+    }
+
+    ADVTYPE
+    {
+        TYPE WEB
+        DESCR "HIGH PROFILE WEB AD"
+        AFM 00384398
+        COST_PER_DAY 45.6
+        COST_PER_ADDITIONAL_PAGE 10.5
+        COST_AUTOSHOW 31.7
+    }
+
+
+    ADVTYPE
+    {
+        TYPE PRINT
+        AFM 055556676
+        COST_FRONT 102.3
+        COST_MID    76.91
+        COST_BACK   87.49
+    }
+
+    ADVTYPE
+    {
+        TYPE PRINT
+        DESCR "BOOK 2"
+        AFM 055556676
         COST_FRONT 102.3
         COST_MID    76.91
         COST_BACK   87.49

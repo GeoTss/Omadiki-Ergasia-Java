@@ -12,13 +12,19 @@ import java.util.Scanner;
 public class mainApp {
 
   public static void main(String[] args){
-    CarrierParser p = new CarrierParser();
-    p.parse("COMPANY_LIST.txt");
-    p.printCarriers();
+    // CarrierParser p = new CarrierParser();
+    // p.parse("./COMPANY_LIST.txt");
+    // p.printCarriers();
 
-    productParser _p = new productParser();
-    _p.parse("./PRODUCT_LIST.txt");
-    _p.printProducts();
+    // productParser _p = new productParser();
+    // _p.parse("./PRODUCT_LIST.txt");
+    // _p.printProducts();
+
+    AdvTypeParser adv = new AdvTypeParser();
+    adv.parse("./ADVTYPE_LIST.txt");
+
+    System.out.println();
+    adv.printParsedOutput();
     
   }
 
