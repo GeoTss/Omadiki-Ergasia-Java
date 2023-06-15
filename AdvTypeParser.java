@@ -79,7 +79,7 @@ class ParsedPrintedAdType extends ParsedAdvertisementType {
             line = _buff.readLine();
 
             while (!(line.trim().equals("}"))) {
-                ++linesAdvanced;
+                // ++linesAdvanced;
 
                 if (line.isBlank()) {
                     line = _buff.readLine();
@@ -130,6 +130,7 @@ class ParsedPrintedAdType extends ParsedAdvertisementType {
                 }
 
                 line = _buff.readLine();
+                ++linesAdvanced;
             }
         } catch (IOException sex) {
             Logger.getLogger(ParsedPrintedAdType.class.getName()).log(Level.SEVERE, null, sex);
@@ -176,7 +177,7 @@ class ParsedRadioTVAdType extends ParsedAdvertisementType {
             
             while (!(line.trim().equals("}"))) {
                 
-                ++linesAdvanced;
+                // ++linesAdvanced;
                 if (line.isBlank()) {
                     line = _buff.readLine();
                     continue;
@@ -225,6 +226,7 @@ class ParsedRadioTVAdType extends ParsedAdvertisementType {
                 }
 
                 line = _buff.readLine();
+                ++linesAdvanced;
             }
         } catch (IOException sex) {
             Logger.getLogger(ParsedRadioTVAdType.class.getName()).log(Level.SEVERE, null, sex);
@@ -270,7 +272,7 @@ class ParsedWebAdType extends ParsedAdvertisementType {
             line = _buff.readLine();
             
             while (!(line.trim().equals("}"))) {
-                ++linesAdvanced;
+                // ++linesAdvanced;
 
                 if (line.isBlank()) {
                     line = _buff.readLine();
@@ -318,6 +320,7 @@ class ParsedWebAdType extends ParsedAdvertisementType {
                 }
 
                 line = _buff.readLine();
+                ++linesAdvanced;
             }
         } catch (IOException sex) {
             Logger.getLogger(ParsedWebAdType.class.getName()).log(Level.SEVERE, null, sex);
