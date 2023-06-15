@@ -1,0 +1,23 @@
+ADVTYPE_LIST
+{
+    ADV
+    {
+        TYPE PRINT
+        ADVTYPE_CODE 2001
+        ITEM_CODE 2998
+        DURATION 10
+        JUSTIFICATION "YO SHAWTY ITS YOUR BIRTHDAY"
+        WORDCOUNT 98
+    }
+
+    ADV
+    {
+        TYPE WEB
+        ADVTYPE_CODE 3001
+        ITEM_CODE 1312
+        DURATION 9
+        JUSTIFICATION "mbape is dog"
+        AUTOSHOW 1
+        ADDITIONAL_PAGES 9
+    }
+}

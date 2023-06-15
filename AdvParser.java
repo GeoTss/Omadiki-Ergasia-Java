@@ -348,19 +348,20 @@ public class AdvParser extends Parser<Advertisement> {
             ParsedAdvertisement parsedAdv = null;
 
             while (true) {
-                line = _buff.readLine();
                 ++lineNum;
+                line = _buff.readLine();
+                
                 if (line == null)
                     break;
 
                 if (line.trim().toUpperCase().equals("ADV")) {
                     line = _buff.readLine();
-                    ++lineNum;
-
                     if (line.trim().equals("{")) {
                         _buff.mark(2048);
+                        boolean foundType = false;
                         while (!(line.trim().equals("}"))) {
                             line = _buff.readLine();
+                            
                             if (line.isBlank())
                                 continue;
                             lineTokens = new StringTokenizer(line);
@@ -371,30 +372,44 @@ public class AdvParser extends Parser<Advertisement> {
 
                             if (token.trim().toUpperCase().equals("TYPE")) {
                                 token = lineTokens.nextToken();
-
+                                
                                 if (token.trim().toUpperCase().equals("PRINT"))
                                     parsedAdv = new ParsedPrintedAd(lineNum);
+
                                 else if (token.trim().toUpperCase().equals("RADIO"))
                                     parsedAdv = new ParsedRadioTVAd(lineNum);
+
                                 else if (token.trim().toUpperCase().equals("WEB"))
                                     parsedAdv = new ParsedWebAd(lineNum);
+                                else{
+                                    System.out.println("Missing typename after TYPE in ADVTYPE, line " + lineNum);
+                                    break;
+                                }
+                                foundType = true;
                                 
                                 int parseErrors = parsedAdv.parse(_buff);
                                 if (parseErrors == 0)
                                     parsedOutput.add(parsedAdv.getAdv());
 
-                                lineNum += parsedAdv.getLinesAdvanced() + parseErrors;
+                                lineNum += parsedAdv.getLinesAdvanced()+1;
                                 break;
                             }
+
                         }
+                        if(!foundType)
+                            System.out.println("Didn't find TYPE for ADV in line " + lineNum);
+                    }
+                    else{
+                        ++lineNum;
+                        System.out.println("Missing { in line " + lineNum);
                     }
                 }
             }
         } catch (java.util.NoSuchElementException sex) {
-            Logger.getLogger(AdvParser.class.getName()).log(Level.SEVERE,
-                    "ERROR WHILE PROCESSING ADV FOR ");
+            Logger.getLogger(AdvTypeParser.class.getName()).log(Level.SEVERE,
+                    "ERROR WHILE PROCESSING ADVTYPE FOR TYPE");
         } catch (IOException ex) {
-            Logger.getLogger(AdvParser.class.getName()).log(Level.SEVERE, "IOException", ex);
+            Logger.getLogger(AdvTypeParser.class.getName()).log(Level.SEVERE, "IOException", ex);
         }
     }
 }

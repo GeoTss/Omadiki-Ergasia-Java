@@ -20,8 +20,8 @@ public class mainApp {
     // _p.parse("./PRODUCT_LIST.txt");
     // _p.printProducts();
 
-    AdvTypeParser adv = new AdvTypeParser();
-    adv.parse("./ADVTYPE_LIST.txt");
+    AdvParser adv = new AdvParser();
+    adv.parse("./ADV.txt.txt");
 
     System.out.println();
     adv.printParsedOutput();
