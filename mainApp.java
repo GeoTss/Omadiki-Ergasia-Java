@@ -10,6 +10,38 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class mainApp {
+<<<<<<< HEAD
+  public static void greetUser() {
+    System.out.print(
+        "Type 1 to add a new carrier.\nType 2 to add a new Advertisement type.\nType 3 to add a new Advertisement.\nType 4 to display Advertisements.\nType 5 to display Advertisements of a certain Carrier.\nType 6 to evaluate the cost of all the Advertisements of a certain carrier.\nType 7 to display the count of Advertisements per Product.\nType 8 to evaluate the cost of the Advertisement of a single Product.\nType 9 to display the cost of the Advertisements per Product.\nType 0 to exit the application.\nChoice: ");
+  }
+  public static boolean checkWordCount(int _wordCount) {
+    return (_wordCount > 0);
+  }
+  public static boolean checkPosition(int _position) {
+    return ((_position >= 0) && (_position <= 2));
+  }
+  public static boolean checkDuration(int _duration) {
+    return _duration > 0;
+  }
+  public static boolean checkAdditionalPages(int _additionalPages) {
+    return _additionalPages > 0;
+  }
+  public static boolean checkTimeZone(int _timeZone) {
+    return ((_timeZone >= 0) && (_timeZone <= 3));
+  }
+  public static boolean checkDurationSeconds(int _durationSeconds) {
+    return (_durationSeconds > 0); 
+  }
+  public static boolean checkAutoShow(int _autoshow) {
+    return ((_autoshow >= 0) && (_autoshow <= 1));
+  }
+  public static boolean checkChoice(int _choice) {
+    return ((_choice != 1) && (_choice != 2) && (_choice != 3));
+  }
+  public static void wrongInput() {
+    System.out.println("Wrong input please try again.");
+=======
 
   public static void main(String[] args){
     // CarrierParser p = new CarrierParser();
@@ -26,6 +58,7 @@ public class mainApp {
     System.out.println();
     adv.printParsedOutput();
     
+>>>>>>> 7c36a8408c3fc42d8725edf6d92c5a829260d443
   }
 
   // public static void greetUser() {
@@ -238,7 +271,51 @@ public class mainApp {
   //         System.out.println("Insert reason.");
   //         String _reason = scan.nextLine();
 
+<<<<<<< HEAD
+          if (_Type instanceof PrintedAdType) {
+            System.out.println("Insert word count.");
+            int _wordCount;
+            do {
+              _wordCount = scan.nextInt();
+            } while (!checkWordCount(_wordCount));
+              System.out.println("Insert position.");
+            int _position;
+            do {
+              _position = scan.nextInt();
+            } while (!checkPosition(_position));
+            _adList.insertAd(
+                new PrintedAd((PrintedAdType) _Type, _ProductCode, _reason, _Duration, _wordCount, _position));
+          } 
+          else if (_Type instanceof RadioTVAdType) {
+            System.out.println("Insert auto show. (1 for Yes/0 for No)");
+            int _autoshow;
+            do {
+              _autoshow = scan.nextInt();
+            } while (!checkAutoShow(_autoshow));
+            System.out.println("Insert additional pages.");
+            int _additionalPages;
+            do {
+              _additionalPages = scan.nextInt();
+            } while (!checkAdditionalPages(_additionalPages));
+              _adList
+                .insertAd(new WebAd((WebAdType) _Type, _ProductCode, _reason, _Duration, _autoshow, _additionalPages));
+          } 
+          else if (_Type instanceof WebAdType){
+            System.out.println("Insert time zone.");
+            int _TimeZone;
+            do {
+              _TimeZone = scan.nextInt();
+            } while (!checkTimeZone(_TimeZone));
+            System.out.println("");
+            int _DurationSeconds = scan.nextInt();
+            _adList.insertAd(
+                new RadioTVAd((RadioTVAdType) _Type, _ProductCode, _reason, _Duration, _TimeZone, _DurationSeconds));
+          } 
+          else
+            wrongInput();
+=======
   //         AdvertisementType _Type = codeMem.get(_TypeCode);
+>>>>>>> 7c36a8408c3fc42d8725edf6d92c5a829260d443
 
   //         if (_Type instanceof PrintedAdType) {
   //           System.out.println("Insert word count.");
