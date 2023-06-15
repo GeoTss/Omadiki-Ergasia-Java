@@ -3,6 +3,8 @@ class PrintedAd extends Advertisement{
     private float costInPos;
     int position;
 
+    PrintedAd() {}
+
     PrintedAd(PrintedAdType _info, Product _product, String _reason, int _durationDays, int _wordCount, int _position){
         typeCode = _info.getCode();
         productCode = _product.getCode();
@@ -45,6 +47,26 @@ class PrintedAd extends Advertisement{
                 costInPos = _info.getCostBack();
                 break;
         }
+    }
+
+    void setProductCode(int _product) {
+        productCode = _product;
+    }
+
+    void setWordCount(int _wordCount) {
+        wordCount = _wordCount;
+    }
+
+    void setCostInPos(float _costInPos) {
+        costInPos = _costInPos;
+    }
+
+    void setposition(int _position) {
+        position = _position;
+    }
+
+    void setDurationDays(int _durationDays) {
+        durationDays = _durationDays;
     }
 
     void showCostFormula(){

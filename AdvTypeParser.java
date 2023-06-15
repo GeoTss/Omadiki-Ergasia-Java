@@ -220,7 +220,9 @@ class ParsedRadioTVAdType extends ParsedAdvertisementType {
                 else if (token.trim().toUpperCase().equals("CPS_EVENING")) {
                     ret.setcpsEvening(Float.parseFloat(lineTokens.nextToken()));
                     mandatoryElems.set(5, true);
-                } else if (token.trim().toUpperCase().equals("CPS_NIGHT")) {
+                } 
+                
+                else if (token.trim().toUpperCase().equals("CPS_NIGHT")) {
                     ret.setcpsNight(Float.parseFloat(lineTokens.nextToken()));
                     mandatoryElems.set(6, true);
                 }
