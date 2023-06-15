@@ -1,6 +1,15 @@
 import java.util.ArrayList;
 public class adList {
     ArrayList<Advertisement> myArrayList = new ArrayList<Advertisement>();
+
+    adList(){
+        myArrayList = new ArrayList<>();
+    }
+
+    adList(ArrayList<Advertisement> ads){
+        myArrayList = ads;
+    }
+
     public void insertAd(Advertisement _Advertisement) { 
         myArrayList.add(_Advertisement);
     }

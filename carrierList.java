@@ -1,6 +1,15 @@
 import java.util.ArrayList;
 class carrierList {
     ArrayList<Carrier> myArray = new ArrayList<Carrier>();
+
+    carrierList() {
+        myArray = new ArrayList<>();
+    }
+
+    carrierList(ArrayList<Carrier> c){
+        myArray = c;
+    }
+
     public void insertCarrier(Carrier _Carrier) {
         myArray.add(_Carrier);
     }

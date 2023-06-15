@@ -25,35 +25,72 @@ public class CarrierParser extends Parser<Carrier> {
             StringTokenizer lineTokens;
             String token;
             String line;
+            
+            int lineNum = 0;
 
-            String name = " ", afm = " ";
+            // String name = " ", afm = " ";
+            boolean[] hasElements = new boolean[2];
+            String[] elems = new String[2];
+
+            elems[0] = "NAME";
+            elems[1] = "AFM";
 
             while(true){
+                ++lineNum;
                 line = _buff.readLine();
-
+                
                 if(line == null)
                     break;
                 
                 if(line.trim().toUpperCase().equals("COMPANY")){
                     line = _buff.readLine();
+                    Carrier c = new Carrier();
+                    
                     if(line.trim().equals("{")){
                         _buff.mark(2077);
+
+                        hasElements[0] = hasElements[1] = false;
+                        int tempLineCount = 1;
+
                         while(!line.trim().equals("}")){
                             line = _buff.readLine();
+                            ++tempLineCount;
+
+                            if(line.isBlank() || line.isEmpty())
+                                continue;
 
                             lineTokens = new StringTokenizer(line);
+
+                            if(lineTokens.countTokens() < 2)
+                                continue;
+
                             token = lineTokens.nextToken();
                             if(token.equals("NAME")){
                                 lineTokens.nextToken("\"");
-                                name = lineTokens.nextToken("\"");
+                                c.setName(lineTokens.nextToken("\""));
+                                hasElements[0] = true;
                             }
-                            else if(token.equals("AFM"))
-                                afm = lineTokens.nextToken();
+                            else if(token.equals("AFM")){
+                                // afm = lineTokens.nextToken();
+                                c.setVAT(lineTokens.nextToken());
+                                hasElements[1] = true;
+                            }
                         }
-
-                        parsedOutput.add(new Carrier(afm, name));
+                        if(hasElements[0] && hasElements[1])
+                            parsedOutput.add(c);
+                        else{
+                            System.out.println("The following elements are missing from COMPANY in line " + lineNum + ":");
+                            for(int i = 0; i < 2; ++i)
+                                if(!hasElements[i])
+                                    System.out.println(elems[i]);
+                            System.out.println();
+                        }
+                        lineNum += tempLineCount;
+                        // parsedOutput.add(new Carrier(afm, name));
                     }
                 }
+                else
+                    System.out.println("Expected { below COMPANY in line " + lineNum++);
             }
             _buff.close();
 

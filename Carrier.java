@@ -5,6 +5,8 @@ class Carrier {
         VAT = _VAT;
         Name = _Name;
     }
+    Carrier() {}
+
     void setVAT(String _VAT) {
         VAT = _VAT;
     }

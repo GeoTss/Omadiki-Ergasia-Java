@@ -6,9 +6,9 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class productParser extends Parser<Product> {
+public class ProductParser extends Parser<Product> {
     
-    productParser() {
+    ProductParser() {
         parsedOutput = new ArrayList<>();
     }
 
@@ -27,34 +27,71 @@ public class productParser extends Parser<Product> {
             String token;
             String line = "";
 
-            String descr = " ", name = " ";
+            int lineNum = 0;
+            
+            boolean[] hasElements = new boolean[3];
+            String[] elems = new String[3];
+
+            elems[0] = "CODE";
+            elems[1] = "CARRIER_AFM";
+            elems[2] = "DESCR";
 
             while(true) {
-
+                ++lineNum;
                 line = _buff.readLine();
 
                 if(line == null)
                     break;
 
                 if(line.trim().toUpperCase().equals("ITEM")){
-
                     line = _buff.readLine();
+                    Product p = new Product();
+
                     if(line.trim().equals("{")){
                         _buff.mark(2077);
-                        while(!line.trim().equals("}")){
+                        hasElements[0] = hasElements[1] = hasElements[2] = false;
+                        int tempLineNum = 1;
+                        
+                        while(!line.trim().equals("}") && !line.trim().toUpperCase().equals("ITEM")){
                             line = _buff.readLine();
+                            ++tempLineNum;
 
+                            if(line != null && line.isBlank())
+                                continue;
                             lineTokens = new StringTokenizer(line);
-                            token = lineTokens.nextToken();
-                            if(token.trim().toUpperCase().equals("DESCR")){
-                                lineTokens.nextToken("\"");
-                                descr = lineTokens.nextToken("\"");
-                            }
-                            else if(token.trim().toUpperCase().equals("NAME"))
-                                name = lineTokens.nextToken();
-                        }
+                            if(lineTokens.countTokens() < 2)
+                                continue;
 
-                        parsedOutput.add(new Product(descr, name));
+                            token = lineTokens.nextToken();
+                            if(token.trim().toUpperCase().equals("CODE")){
+                                p.setCode(Integer.parseInt(lineTokens.nextToken()));
+                                hasElements[0] = true;
+                            }
+
+                            else if(token.trim().toUpperCase().equals("CARRIER_AFM")){
+                                p.setProductVAT(lineTokens.nextToken());
+                                hasElements[1] = true;
+                            }
+                            else if(token.trim().toUpperCase().equals("DESCR")){
+                                lineTokens.nextToken("\"");
+                                p.setDescription(lineTokens.nextToken("\""));
+                                hasElements[2] = true;
+                            }
+                        }
+                        
+                        if(hasElements[0] && hasElements[1] && hasElements[2])
+                            parsedOutput.add(p);
+                        else{
+                            System.out.println("The following elements are missing from ITEM in line " + lineNum + ":");
+                            for(int i = 0; i < 3; ++i)
+                                if(!hasElements[i])
+                                    System.out.println(elems[i]);
+                            System.out.println();
+                        }
+                        lineNum += tempLineNum;
+                    }
+                    else{
+                        System.out.println("Expected { below ITEM in line " + lineNum++);
                     }
                 }
             }

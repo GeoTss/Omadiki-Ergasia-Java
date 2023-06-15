@@ -3,8 +3,8 @@ ADVTYPE_LIST
     ADV
     {
         TYPE PRINT
-        ADVTYPE_CODE 2001
-        ITEM_CODE 2998
+        ADVTYPE_CODE 1001
+        ITEM_CODE 0
         DURATION 10
         JUSTIFICATION "YO SHAWTY ITS YOUR BIRTHDAY"
         WORDCOUNT 98
@@ -13,8 +13,8 @@ ADVTYPE_LIST
     ADV
     {
         TYPE WEB
-        ADVTYPE_CODE 3001
-        ITEM_CODE 1312
+        ADVTYPE_CODE 1006
+        ITEM_CODE 0
         DURATION 9
         JUSTIFICATION "mbape is dog"
         AUTOSHOW 1

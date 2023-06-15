@@ -1,3 +1,5 @@
+import java.io.BufferedWriter;
+
 class PrintedAd extends Advertisement{
     private int wordCount;
     private float costInPos;

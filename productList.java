@@ -1,6 +1,15 @@
 import java.util.ArrayList;
 public class productList {
     ArrayList<Product> myList = new ArrayList<Product>();
+
+    productList() {
+        myList = new ArrayList<>();
+    }
+
+    productList(ArrayList<Product> p){
+        myList = p;
+    }
+
     public void insertProduct(Product _Product) {
         myList.add(_Product);
     }

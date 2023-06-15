@@ -3,7 +3,14 @@ ITEM_LIST
     ITEM
     {
         CODE 0
-        NAME LIGHTSABER
+        CARRIER_AFM 1312
+        
         DESCR "I have the highground"
+    }
+
+    ITEM
+    {
+        CODE 1
+        CARRIER_AFM 2310
     }
 }

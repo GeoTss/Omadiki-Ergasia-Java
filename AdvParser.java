@@ -343,7 +343,7 @@ public class AdvParser extends Parser<Advertisement> {
 
             StringTokenizer lineTokens;
             String token, line = "";
-            int lineNum = 1;
+            int lineNum = 0;
 
             ParsedAdvertisement parsedAdv = null;
 

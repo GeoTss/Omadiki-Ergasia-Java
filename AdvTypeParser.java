@@ -363,8 +363,11 @@ public class AdvTypeParser extends Parser<AdvertisementType> {
                     if (line.trim().equals("{")) {
                         _buff.mark(2048);
                         boolean foundType = false;
+                        int tempLineCount = lineNum+1;
+
                         while (!(line.trim().equals("}"))) {
                             line = _buff.readLine();
+                            ++tempLineCount;
 
                             if (line.isBlank())
                                 continue;
@@ -400,12 +403,14 @@ public class AdvTypeParser extends Parser<AdvertisementType> {
                             }
 
                         }
-                        if(!foundType)
+                        if(!foundType){
                             System.out.println("Didn't found TYPE for ADVTYPE in line " + lineNum);
+                            lineNum = tempLineCount;
+                        }
                     }
                     else{
-                        ++lineNum;
-                        System.out.println("Missing { in line " + lineNum);
+                        // ++lineNum;
+                        System.out.println("Expected { after ADVTYPE in line " + lineNum++);
                     }
                 }
             }

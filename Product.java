@@ -9,6 +9,12 @@ class Product {
         Description = _Description;
         ProductVAT = _ProductVAT;
     }
+
+    Product() {}
+
+    void setCode(int _Code){
+        Code = _Code;
+    }
     void setDescription(String _Description) {
         Description = _Description;
     }
