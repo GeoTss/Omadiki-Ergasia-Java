@@ -39,7 +39,7 @@ abstract class ParsedAdvertisementType {
         }
 
         if (!log.isEmpty())
-            System.out.println("ADVTYPE in line " + lineNum + " has the following elements missing:\n" + log + "\n");
+            System.out.println("In line " + lineNum + ", the following items from ADVTYPE are missing:\n" + log);
         return errors;
     }
 
@@ -77,9 +77,9 @@ class ParsedPrintedAdType extends ParsedAdvertisementType {
             String token;
             String line;
             line = _buff.readLine();
-
+            
             while (!(line.trim().equals("}"))) {
-                // ++linesAdvanced;
+                ++linesAdvanced;
 
                 if (line.isBlank()) {
                     line = _buff.readLine();
@@ -130,12 +130,11 @@ class ParsedPrintedAdType extends ParsedAdvertisementType {
                 }
 
                 line = _buff.readLine();
-                ++linesAdvanced;
             }
         } catch (IOException sex) {
             Logger.getLogger(ParsedPrintedAdType.class.getName()).log(Level.SEVERE, null, sex);
         }
-        // ++linesAdvanced;
+        ++linesAdvanced;
 
         int ok = errorLog();
         if (ok == 0)
@@ -176,8 +175,8 @@ class ParsedRadioTVAdType extends ParsedAdvertisementType {
             line = _buff.readLine();
             
             while (!(line.trim().equals("}"))) {
+                ++linesAdvanced;
                 
-                // ++linesAdvanced;
                 if (line.isBlank()) {
                     line = _buff.readLine();
                     continue;
@@ -228,12 +227,11 @@ class ParsedRadioTVAdType extends ParsedAdvertisementType {
                 }
 
                 line = _buff.readLine();
-                ++linesAdvanced;
             }
         } catch (IOException sex) {
             Logger.getLogger(ParsedRadioTVAdType.class.getName()).log(Level.SEVERE, null, sex);
         }
-        // ++linesAdvanced;
+        ++linesAdvanced;
 
         int ok = errorLog();
         if (ok == 0)
@@ -274,7 +272,7 @@ class ParsedWebAdType extends ParsedAdvertisementType {
             line = _buff.readLine();
             
             while (!(line.trim().equals("}"))) {
-                // ++linesAdvanced;
+                ++linesAdvanced;
 
                 if (line.isBlank()) {
                     line = _buff.readLine();
@@ -322,12 +320,11 @@ class ParsedWebAdType extends ParsedAdvertisementType {
                 }
 
                 line = _buff.readLine();
-                ++linesAdvanced;
             }
         } catch (IOException sex) {
             Logger.getLogger(ParsedWebAdType.class.getName()).log(Level.SEVERE, null, sex);
         }
-        // ++linesAdvanced;
+        ++linesAdvanced;
 
         int ok = errorLog();
         if (ok == 0)
@@ -350,24 +347,25 @@ public class AdvTypeParser extends Parser<AdvertisementType> {
 
             StringTokenizer lineTokens;
             String token, line = "";
-            int lineNum = 1;
+            int lineNum = 0;
 
             ParsedAdvertisementType parsedAdvType = null;
 
             while (true) {
-                line = _buff.readLine();
                 ++lineNum;
+                line = _buff.readLine();
+
                 if (line == null)
                     break;
 
                 if (line.trim().toUpperCase().equals("ADVTYPE")) {
                     line = _buff.readLine();
-                    ++lineNum;
-
                     if (line.trim().equals("{")) {
                         _buff.mark(2048);
+                        boolean foundType = false;
                         while (!(line.trim().equals("}"))) {
                             line = _buff.readLine();
+
                             if (line.isBlank())
                                 continue;
                             lineTokens = new StringTokenizer(line);
@@ -378,23 +376,36 @@ public class AdvTypeParser extends Parser<AdvertisementType> {
 
                             if (token.trim().toUpperCase().equals("TYPE")) {
                                 token = lineTokens.nextToken();
-
+                                
                                 if (token.trim().toUpperCase().equals("PRINT"))
                                     parsedAdvType = new ParsedPrintedAdType(lineNum);
+
                                 else if (token.trim().toUpperCase().equals("RADIO"))
                                     parsedAdvType = new ParsedRadioTVAdType(lineNum);
+
                                 else if (token.trim().toUpperCase().equals("WEB"))
                                     parsedAdvType = new ParsedWebAdType(lineNum);
+                                else{
+                                    System.out.println("Missing typename after TYPE in ADVTYPE, line " + lineNum);
+                                    break;
+                                }
+                                foundType = true;
                                 
                                 int parseErrors = parsedAdvType.parse(_buff);
                                 if (parseErrors == 0)
                                     parsedOutput.add(parsedAdvType.getAdv());
 
-                                lineNum += parsedAdvType.getLinesAdvanced() + parseErrors;
+                                lineNum += parsedAdvType.getLinesAdvanced()+1;
                                 break;
                             }
 
                         }
+                        if(!foundType)
+                            System.out.println("Didn't found TYPE for ADVTYPE in line " + lineNum);
+                    }
+                    else{
+                        ++lineNum;
+                        System.out.println("Missing { in line " + lineNum);
                     }
                 }
             }

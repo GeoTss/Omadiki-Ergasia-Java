@@ -386,7 +386,6 @@ public class AdvParser extends Parser<Advertisement> {
                                 lineNum += parsedAdv.getLinesAdvanced() + parseErrors;
                                 break;
                             }
-
                         }
                     }
                 }
