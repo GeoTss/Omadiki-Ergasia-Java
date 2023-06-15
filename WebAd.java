@@ -57,6 +57,10 @@ public class WebAd extends Advertisement{
         return typeInfo.getCostPerDay() * durationDays + typeInfo.getCostAutoShow() + typeInfo.getCostPerAdditionalPage() * additionalPages;
     }
 
+    String genFileFormat(){
+        return ("TYPE MEDIA\n" + super.genFileFormat() + "\nAUTOSHOW " + autoShow + "\nADDITIONAL_PAGES " + additionalPages).replaceAll("(?m)^", "\t\t");
+    }
+
     public String toString(){
         return super.toString() + "\nAdditional pages: " + additionalPages + "\nAuto show up: " + autoShow;
     }

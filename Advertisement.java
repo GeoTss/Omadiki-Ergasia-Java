@@ -1,5 +1,3 @@
-import java.io.BufferedWriter;
-
 abstract class Advertisement{
     int typeCode, productCode;
     String reason;
@@ -22,11 +20,13 @@ abstract class Advertisement{
         return reason;
     }
 
+    String genFileFormat(){
+        return "ADVTYPE_CODE " + typeCode + "\nITEM_CODE " + productCode + "\nDURATION " + durationDays + "\nJUSTIFICATION \"" + reason + "\"";
+    }
+
     public String toString(){
         return "Advertisement type code: " + typeCode + "\nProduct code: " + productCode + "\nAppearence duration in days: " + durationDays + "\nReason: " + reason;
     }
-
-    // abstract String writeToFile(BufferedWriter _buff);
 
     abstract void showCostFormula();
     abstract float calculateCost();

@@ -63,6 +63,10 @@ class WebAdType extends AdvertisementType{
         return CostAutoShow;
     }
 
+    String genFileFormat(){
+        return ("TYPE MEDIA\n" + super.genFileFormat() + "\nCOST_PER_DAY " + CostPerDay + "\nCOST_PER_ADDITIONAL_PAGE " + CostPerAdditionalPage + "\nCOST_AUTOSHOW " + CostAutoShow).replaceAll("(?m)^", "\t\t");
+    }
+
     public String toString(){
         return super.toString() + "\nCost per day: " + CostPerDay + "\nPrice for automatic show: " + CostAutoShow + "\nCost per additional page: " + CostPerAdditionalPage;
     }

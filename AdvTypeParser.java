@@ -386,7 +386,7 @@ public class AdvTypeParser extends Parser<AdvertisementType> {
                                 else if (token.trim().toUpperCase().equals("RADIO"))
                                     parsedAdvType = new ParsedRadioTVAdType(lineNum);
 
-                                else if (token.trim().toUpperCase().equals("WEB"))
+                                else if (token.trim().toUpperCase().equals("MEDIA"))
                                     parsedAdvType = new ParsedWebAdType(lineNum);
                                 else{
                                     System.out.println("Missing typename after TYPE in ADVTYPE, line " + lineNum);

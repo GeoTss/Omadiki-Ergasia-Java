@@ -77,6 +77,10 @@ class RadioTVAdType extends AdvertisementType {
         return cpsNight;
     }
 
+    String genFileFormat(){
+        return ("TYPE RADIO\n" + super.genFileFormat() + "\nCPS_MORNING " + cpsMorning + "\nCPS_MIDDAY " + cpsMidday + "\nCPS_EVENING " + cpsEvening + "\nCPS_NIGHT " + cpsNight).replaceAll("(?m)^", "\t\t");
+    }
+
     public String toString() {
         return super.toString() + "\nPrice per second - Morning zone: " + cpsMorning
                 + "\nPrice per second - Midday zone: " + cpsMidday + "\nPrice per second - Evening zone: " + cpsEvening

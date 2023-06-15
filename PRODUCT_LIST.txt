@@ -12,5 +12,7 @@ ITEM_LIST
     {
         CODE 1
         CARRIER_AFM 2310
+
+        DESCR "RANDOM"
     }
 }

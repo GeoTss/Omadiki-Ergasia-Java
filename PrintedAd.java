@@ -1,5 +1,3 @@
-import java.io.BufferedWriter;
-
 class PrintedAd extends Advertisement{
     private int wordCount;
     private float costInPos;
@@ -78,6 +76,10 @@ class PrintedAd extends Advertisement{
     float calculateCost(){
         showCostFormula();
         return wordCount * costInPos * durationDays;
+    }
+
+    String genFileFormat(){
+        return ("TYPE PRINT\n" + super.genFileFormat() + "\nWORDCOUNT " + wordCount + "\nPOSITION " + position).replaceAll("(?m)^", "\t\t");
     }
 
     public String toString(){

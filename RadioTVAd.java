@@ -81,6 +81,10 @@ class RadioTVAd extends Advertisement{
         return durationSeconds * timeZoneCPS * durationDays;
     }
 
+    String genFileFormat(){
+        return ("TYPE RADIO\n" + super.genFileFormat() + "\nDURATION_SECONDS " + durationSeconds + "\nTIME_ZONE " + timeZone).replaceAll("(?m)^", "\t\t");
+    }
+
     public String toStirng(){
         return super.toString() + "\nAdvertisement duration in seconds: " + durationSeconds + "\nTime zone: " + timeZone;
     }

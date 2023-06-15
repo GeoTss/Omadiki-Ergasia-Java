@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 public class adList {
     ArrayList<Advertisement> myArrayList = new ArrayList<Advertisement>();
@@ -23,5 +26,20 @@ public class adList {
     }
     public ArrayList<Advertisement> getArray() {
         return myArrayList;
+    }
+
+    void writeToFile(String filepath){
+        try{
+            FileWriter file = new FileWriter(filepath);
+            BufferedWriter bw = new BufferedWriter(file);
+
+            bw.write("ADV_LIST\n{\n");
+            for(Advertisement ad: myArrayList)
+                bw.write("\n\tADV\n\t{\n" + ad.genFileFormat() + "\n\t}\n");
+            bw.write("\n}");
+
+            bw.close();
+
+        }catch(IOException ex){}
     }
 }

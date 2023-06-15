@@ -57,7 +57,7 @@ public class mainApp {
     return ((_autoshow >= 1) && (_autoshow <= 2));
   }
   public static boolean checkChoice(int _choice) {
-    return ((_choice != 1) && (_choice != 2) && (_choice != 3));
+    return ((_choice == 1) || (_choice == 2) || (_choice == 3));
   }
   public static void wrongInput() {
     System.out.println("Wrong input please try again.");
@@ -171,7 +171,7 @@ public class mainApp {
     productList _productList = new productList(productParser.getParsedOutput());
 
     AdvParser advParser = new AdvParser();
-    advParser.parse("./ADV.txt.txt");
+    advParser.parse("./ADV.txt");
     adList _adList = new adList(advParser.getParsedOutput());
 
     HashMap<String, ArrayList<Advertisement>> carrierMem = new HashMap<String, ArrayList<Advertisement>>();
@@ -206,14 +206,16 @@ public class mainApp {
         case 2:
           int choice2;
           do{
-            System.out.println("Insert 1 for PrintedAd type, 2 for RadioTVAdtype , 3 for WebAd type.");
+            System.out.print("Insert 1 for PrintedAd type, 2 for RadioTVAdtype , 3 for WebAd type: ");
             choice2 = scan.nextInt();
           }while(!checkChoice(choice2));
-          System.out.println("Insert description.");
+
+          scan.nextLine();
+          System.out.print("Insert description: ");
           String _Description = scan.nextLine();
           String _VAT;
           do{
-            System.out.println("Insert VAT of carrier.");
+            System.out.print("Insert VAT of carrier: ");
             _VAT = scan.next();
           }while(!carrierMem.containsKey(_VAT));
 
@@ -245,55 +247,59 @@ public class mainApp {
           _productList.displayProductList();
           int _ProductCode;
           do {
+            System.out.print("Enter product code: ");
             _ProductCode = scan.nextInt();
           } while (!productMem.containsKey(_ProductCode));
 
-          System.out.println("Insert duration of days");
           int _Duration;
           do {   
+            System.out.print("Insert duration of days: ");
             _Duration = scan.nextInt();
           } while (!checkDuration(_Duration));
 
-          System.out.println("Insert reason.");
+          scan.nextLine();
+          System.out.print("Insert reason: ");
           String _reason = scan.nextLine();
 
           AdvertisementType _Type = codeMem.get(_TypeCode);
 
           if (_Type instanceof PrintedAdType) {
-            System.out.println("Insert word count.");
             int _wordCount;
             do {
+              System.out.print("Insert word count: ");
               _wordCount = scan.nextInt();
             } while (!checkWordCount(_wordCount));
-              System.out.println("Insert position.");
+
             int _position;
             do {
+              System.out.print("Insert position: ");
               _position = scan.nextInt();
             } while (!checkPosition(_position));
             _adList.insertAd(
                 new PrintedAd((PrintedAdType) _Type, _ProductCode, _reason, _Duration, _wordCount, _position));
           } 
           else if (_Type instanceof WebAdType) {
-            System.out.println("Insert auto show.");
             int _autoshow;
             do {
+              System.out.print("Insert auto show (1 - Yes, 2 - No): ");
               _autoshow = scan.nextInt();
             } while (!checkAutoShow(_autoshow));
-            System.out.println("Insert additional pages.");
+
             int _additionalPages;
             do {
+              System.out.print("Insert additional pages: ");
               _additionalPages = scan.nextInt();
             } while (!checkAdditionalPages(_additionalPages));
               _adList
                 .insertAd(new WebAd((WebAdType) _Type, _ProductCode, _reason, _Duration, _autoshow, _additionalPages));
           } 
           else if (_Type instanceof RadioTVAdType){
-            System.out.println("Insert time zone.");
             int _TimeZone;
             do {
+              System.out.print("Insert valid time zone (0 - for morning, 1 - for midday, 2 - for evening, 3 - for night): ");
               _TimeZone = scan.nextInt();
             } while (!checkTimeZone(_TimeZone));
-            System.out.println("");
+            System.out.println();
             int _DurationSeconds = scan.nextInt();
             _adList.insertAd(
                 new RadioTVAd((RadioTVAdType) _Type, _ProductCode, _reason, _Duration, _TimeZone, _DurationSeconds));
@@ -348,8 +354,7 @@ public class mainApp {
           break;
 
         case 7:
-          // System.out.println("Insert the code of the product.");
-          // int code = scan.nextInt();
+
           class productPair {
             private Product pr;
             private int count;
@@ -372,8 +377,7 @@ public class mainApp {
           for (Product pr : _productList.myList)
             productCount.add(new productPair(pr, productMem.get(pr.getCode()).size()));
 
-          Comparator<productPair> productPairComparator = (productPair p1, productPair p2) -> Integer
-              .compare(p2.getCount(), p1.getCount());
+          Comparator<productPair> productPairComparator = (productPair p1, productPair p2) -> Integer.compare(p2.getCount(), p1.getCount());
           productCount.sort(productPairComparator);
 
           System.out.println("\n///////////////////////////////////////////\nProducts\n///////////////////////////////////////////\n");
@@ -431,8 +435,7 @@ public class mainApp {
             productCost.add(new CostPair(pr, _Sum));
           }
 
-          Comparator<CostPair> CostPairComparator = (CostPair p1, CostPair p2) -> Float.compare(p2.getTotalCost(),
-              p1.getTotalCost());
+          Comparator<CostPair> CostPairComparator = (CostPair p1, CostPair p2) -> Float.compare(p2.getTotalCost(), p1.getTotalCost());
           productCost.sort(CostPairComparator);
 
           System.out.println("\n///////////////////////////////////////////\nProducts\n///////////////////////////////////////////\n");
@@ -450,6 +453,9 @@ public class mainApp {
       answer = scan.nextInt();
     }
     scan.close();
+
+    _typeList.writeToFile("./ADVTYPE_LIST.txt");
+    _adList.writeToFile("./ADV.txt");
 
   }
 }

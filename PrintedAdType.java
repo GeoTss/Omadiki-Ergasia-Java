@@ -65,6 +65,10 @@ public class PrintedAdType extends AdvertisementType {
         return costBack;
     }
 
+    String genFileFormat(){
+        return ("TYPE PRINT\n" + super.genFileFormat() + "\nCOST_FRONT " + costFront + "\nCOST_MID " + costMid + "\nCOST_BACK " + costBack).replaceAll("(?m)^", "\t\t");
+    }
+    
     public String toString() {
         return super.toString() + "\nPrice per word in first page: " + costFront + "\nPrice per word in middle pages: "
                 + costMid + "\nPrice per word in last page: " + costBack;

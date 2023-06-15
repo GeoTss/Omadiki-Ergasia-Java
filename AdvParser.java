@@ -78,7 +78,7 @@ class ParsedPrintedAd extends ParsedAdvertisement {
             line = _buff.readLine();
 
             while (!(line.trim().equals("}"))) {
-                // ++linesAdvanced;
+                ++linesAdvanced;
 
                 if (line.isBlank()) {
                     line = _buff.readLine();
@@ -127,12 +127,12 @@ class ParsedPrintedAd extends ParsedAdvertisement {
                 }
 
                 line = _buff.readLine();
-                ++linesAdvanced;
+                // ++linesAdvanced;
             }
         } catch (IOException sex) {
             Logger.getLogger(ParsedPrintedAd.class.getName()).log(Level.SEVERE, null, sex);
         }
-        // ++linesAdvanced;
+        ++linesAdvanced;
 
         int ok = errorLog();
         if (ok == 0)
@@ -172,7 +172,7 @@ class ParsedRadioTVAd extends ParsedAdvertisement {
             
             while (!(line.trim().equals("}"))) {
                 
-                // ++linesAdvanced;
+                ++linesAdvanced;
                 if (line.isBlank()) {
                     line = _buff.readLine();
                     continue;
@@ -221,12 +221,12 @@ class ParsedRadioTVAd extends ParsedAdvertisement {
                 
 
                 line = _buff.readLine();
-                ++linesAdvanced;
+                // ++linesAdvanced;
             }
         } catch (IOException sex) {
             Logger.getLogger(ParsedRadioTVAd.class.getName()).log(Level.SEVERE, null, sex);
         }
-        // ++linesAdvanced;
+        ++linesAdvanced;
 
         int ok = errorLog();
         if (ok == 0)
@@ -266,7 +266,7 @@ class ParsedWebAd extends ParsedAdvertisement {
             line = _buff.readLine();
             
             while (!(line.trim().equals("}"))) {
-                // ++linesAdvanced;
+                ++linesAdvanced;
 
                 if (line.isBlank()) {
                     line = _buff.readLine();
@@ -315,12 +315,12 @@ class ParsedWebAd extends ParsedAdvertisement {
                 }
 
                 line = _buff.readLine();
-                ++linesAdvanced;
+                // ++linesAdvanced;
             }
         } catch (IOException sex) {
             Logger.getLogger(ParsedWebAd.class.getName()).log(Level.SEVERE, null, sex);
         }
-        // ++linesAdvanced;
+        ++linesAdvanced;
 
         int ok = errorLog();
         if (ok == 0)
@@ -357,11 +357,15 @@ public class AdvParser extends Parser<Advertisement> {
                 if (line.trim().toUpperCase().equals("ADV")) {
                     line = _buff.readLine();
                     if (line.trim().equals("{")) {
+
                         _buff.mark(2048);
                         boolean foundType = false;
+                        int tempLineCount = lineNum+1;
+
                         while (!(line.trim().equals("}"))) {
                             line = _buff.readLine();
-                            
+                            ++tempLineCount;
+
                             if (line.isBlank())
                                 continue;
                             lineTokens = new StringTokenizer(line);
@@ -379,10 +383,10 @@ public class AdvParser extends Parser<Advertisement> {
                                 else if (token.trim().toUpperCase().equals("RADIO"))
                                     parsedAdv = new ParsedRadioTVAd(lineNum);
 
-                                else if (token.trim().toUpperCase().equals("WEB"))
+                                else if (token.trim().toUpperCase().equals("MEDIA"))
                                     parsedAdv = new ParsedWebAd(lineNum);
                                 else{
-                                    System.out.println("Missing typename after TYPE in ADVTYPE, line " + lineNum);
+                                    System.out.println("Missing typename after TYPE in ADV, line " + lineNum);
                                     break;
                                 }
                                 foundType = true;
@@ -396,12 +400,13 @@ public class AdvParser extends Parser<Advertisement> {
                             }
 
                         }
-                        if(!foundType)
+                        if(!foundType){
                             System.out.println("Didn't find TYPE for ADV in line " + lineNum);
+                            lineNum = tempLineCount;
+                        }
                     }
                     else{
-                        ++lineNum;
-                        System.out.println("Missing { in line " + lineNum);
+                        System.out.println("Missing { in line " + lineNum++);
                     }
                 }
             }

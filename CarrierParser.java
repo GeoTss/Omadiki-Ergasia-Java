@@ -88,9 +88,9 @@ public class CarrierParser extends Parser<Carrier> {
                         lineNum += tempLineCount;
                         // parsedOutput.add(new Carrier(afm, name));
                     }
+                    else
+                        System.out.println("Expected { below COMPANY in line " + lineNum++);
                 }
-                else
-                    System.out.println("Expected { below COMPANY in line " + lineNum++);
             }
             _buff.close();
 
