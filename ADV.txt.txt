@@ -20,4 +20,23 @@ ADVTYPE_LIST
         AUTOSHOW 1
         ADDITIONAL_PAGES 9
     }
+
+    ADV
+    {
+        TYPE PRINT
+        ADVTYPE_CODE 2003
+        ITEM_CODE 1221
+        DURATION 10
+        JUSTIFICATION "hello n"
+    }
+
+    ADV
+    {
+        TYPE WEB
+        ADVTYPE_CODE 3928
+        ITEM_CODE 2912
+        DURATION 76
+        AUTOSHOW 2
+        ADDITIONAL_PAGES 12
+    }
 }
