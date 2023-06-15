@@ -1,48 +1,341 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class AdvTypeParser extends Parser<AdvertisementType> {
+abstract class ParsedAdvertisementType {
+    protected AdvertisementType adv;
+    protected ArrayList<Boolean> mandatoryElems;
+    protected ArrayList<String> elem;
+    protected int mandatoryElemsCount, lineNum, linesAdvanced;
+    
+    int getMandatoryElemsCount() {
+        return mandatoryElemsCount;
+    }
 
-    static PrintedAdType printedAdTypeParser(BufferedReader _buff) {
+    int getLinesAdvanced(){
+        return linesAdvanced;
+    }
+
+    int getLineNum(){
+        return lineNum;
+    }
+
+    AdvertisementType getAdv() {
+        return adv;
+    }
+
+    int errorLog() {
+        String log = "";
+        int errors = 0;
+        for (int i = 0; i < mandatoryElems.size(); ++i){
+            if (!mandatoryElems.get(i)){
+                log += elem.get(i) + "\n";
+                ++errors;
+            }
+        }
+
+        if (!log.isEmpty())
+            System.out.println("ADVTYPE in line " + lineNum + " has the following elements missing:\n" + log + "\n");
+        return errors;
+    }
+
+    abstract int parse(BufferedReader _buff);
+
+}
+
+class ParsedPrintedAdType extends ParsedAdvertisementType {
+
+    ParsedPrintedAdType(int _line) {
+        lineNum = _line;
+        linesAdvanced = 0;
+        mandatoryElemsCount = 6;
+        mandatoryElems = new ArrayList<>(mandatoryElemsCount);
+        elem = new ArrayList<>(mandatoryElemsCount);
+
+        for (int i = 0; i < mandatoryElemsCount; ++i)
+            mandatoryElems.add(false);
+
+        elem.add("CODE");
+        elem.add("AFM");
+        elem.add("DESCR");
+        elem.add("COST_FRONT");
+        elem.add("COST_MID");
+        elem.add("COST_BACK");
+    }
+
+    int parse(BufferedReader _buff) {
         PrintedAdType ret = new PrintedAdType();
 
         try {
             _buff.reset();
+
             StringTokenizer lineTokens;
             String token;
             String line;
             line = _buff.readLine();
 
-            while ( !(line.trim().equals("}")) ) {
-                line = _buff.readLine();
-                
+            while (!(line.trim().equals("}"))) {
+                ++linesAdvanced;
+
+                if (line.isBlank()) {
+                    line = _buff.readLine();
+                    continue;
+                }
+
                 lineTokens = new StringTokenizer(line);
+                if (lineTokens.countTokens() < 2) {
+                    line = _buff.readLine();
+                    continue;
+                }
+
                 token = lineTokens.nextToken();
-                
-                if(token.trim().toUpperCase().equals("CODE"))
+
+                if (token.trim().toUpperCase().equals("CODE")) {
                     ret.setCode(Integer.parseInt(lineTokens.nextToken()));
-                else if(token.trim().toUpperCase().equals("DESCR")){
+                    mandatoryElems.set(0, true);
+                } 
+
+                else if (token.trim().toUpperCase().equals("AFM")) {
+                    ret.setCarrierVAT(lineTokens.nextToken());
+                    mandatoryElems.set(1, true);
+                }
+                
+                else if (token.trim().toUpperCase().equals("DESCR")) {
+                    lineTokens.nextToken("\"");
+                    token = lineTokens.nextToken("\"");
+                    if(token != null && !token.isBlank() && !token.isEmpty()){
+                        ret.setDescription(token);
+                        mandatoryElems.set(2, true);
+                    }
+                }
+
+
+                else if (token.trim().toUpperCase().equals("COST_FRONT")) {
+                    ret.setCostFront(Float.parseFloat(lineTokens.nextToken()));
+                    mandatoryElems.set(3, true);
+                }
+
+                else if (token.trim().toUpperCase().equals("COST_MID")) {
+                    ret.setCostMid(Float.parseFloat(lineTokens.nextToken()));
+                    mandatoryElems.set(4, true);
+                }
+
+                else if (token.trim().toUpperCase().equals("COST_BACK")) {
+                    ret.setCostBack(Float.parseFloat(lineTokens.nextToken()));
+                    mandatoryElems.set(5, true);
+                }
+
+                line = _buff.readLine();
+            }
+        } catch (IOException sex) {
+            Logger.getLogger(ParsedPrintedAdType.class.getName()).log(Level.SEVERE, null, sex);
+        }
+        // ++linesAdvanced;
+
+        int ok = errorLog();
+        if (ok == 0)
+            adv = ret;
+        return ok;
+    }
+}
+
+class ParsedRadioTVAdType extends ParsedAdvertisementType {
+    ParsedRadioTVAdType(int _line) {
+        lineNum = _line;
+        linesAdvanced = 0;
+        mandatoryElemsCount = 7;
+        mandatoryElems = new ArrayList<>(mandatoryElemsCount);
+        elem = new ArrayList<>(mandatoryElemsCount);
+
+        for (int i = 0; i < mandatoryElemsCount; ++i)
+            mandatoryElems.add(false);
+
+        elem.add("CODE");
+        elem.add("AFM");
+        elem.add("DESCR");
+        elem.add("CPS_MORNING");
+        elem.add("CPS_MIDDAY");
+        elem.add("CPS_EVENING");
+        elem.add("CPS_NIGHT");
+    }
+
+    int parse(BufferedReader _buff) {
+        RadioTVAdType ret = new RadioTVAdType();
+
+        try {
+            _buff.reset();
+
+            StringTokenizer lineTokens;
+            String token;
+            String line;
+            line = _buff.readLine();
+            
+            while (!(line.trim().equals("}"))) {
+                
+                ++linesAdvanced;
+                if (line.isBlank()) {
+                    line = _buff.readLine();
+                    continue;
+                }
+
+                lineTokens = new StringTokenizer(line);
+                if (lineTokens.countTokens() < 2) {
+                    line = _buff.readLine();
+                    continue;
+                }
+
+                token = lineTokens.nextToken();
+
+                if (token.trim().toUpperCase().equals("CODE")) {
+                    ret.setCode(Integer.parseInt(lineTokens.nextToken()));
+                    mandatoryElems.set(0, true);
+                }
+                
+                else if (token.trim().toUpperCase().equals("AFM")) {
+                    ret.setCarrierVAT(lineTokens.nextToken());
+                    mandatoryElems.set(1, true);
+                }
+
+                else if (token.trim().toUpperCase().equals("DESCR")) {
                     lineTokens.nextToken("\"");
                     ret.setDescription(lineTokens.nextToken("\""));
+                    mandatoryElems.set(2, true);
                 }
-                else if(token.trim().toUpperCase().equals("AFM"))
-                    ret.setCarrierVAT(lineTokens.nextToken());
 
-                else if(token.trim().toUpperCase().equals("COST_FRONT"))
-                    ret.setCostFront(Float.parseFloat(lineTokens.nextToken()));
+                else if (token.trim().toUpperCase().equals("CPS_MORNING")) {
+                    ret.setcpsMorning(Float.parseFloat(lineTokens.nextToken()));
+                    mandatoryElems.set(3, true);
+                }
 
-                else if(token.trim().toUpperCase().equals("COST_MID"))
-                    ret.setCostMid(Float.parseFloat(lineTokens.nextToken()));
+                else if (token.trim().toUpperCase().equals("CPS_MIDDAY")) {
+                    ret.setcpsMidday(Float.parseFloat(lineTokens.nextToken()));
+                    mandatoryElems.set(4, true);
+                }
 
-                else if(token.trim().toUpperCase().equals("COST_BACK"))
-                    ret.setCostBack(Float.parseFloat(lineTokens.nextToken()));
+                else if (token.trim().toUpperCase().equals("CPS_EVENING")) {
+                    ret.setcpsEvening(Float.parseFloat(lineTokens.nextToken()));
+                    mandatoryElems.set(5, true);
+                } else if (token.trim().toUpperCase().equals("CPS_NIGHT")) {
+                    ret.setcpsNight(Float.parseFloat(lineTokens.nextToken()));
+                    mandatoryElems.set(6, true);
+                }
 
+                line = _buff.readLine();
             }
-        } catch (IOException sex) {}
+        } catch (IOException sex) {
+            Logger.getLogger(ParsedRadioTVAdType.class.getName()).log(Level.SEVERE, null, sex);
+        }
+        // ++linesAdvanced;
 
-        return ret;
+        int ok = errorLog();
+        if (ok == 0)
+            adv = ret;
+
+        return ok;
+    }
+}
+
+class ParsedWebAdType extends ParsedAdvertisementType {
+    ParsedWebAdType(int _line) {
+        lineNum = _line;
+        linesAdvanced = 0;
+        mandatoryElemsCount = 6;
+        mandatoryElems = new ArrayList<>(mandatoryElemsCount);
+        elem = new ArrayList<>(mandatoryElemsCount);
+
+        for (int i = 0; i < mandatoryElemsCount; ++i)
+            mandatoryElems.add(false);
+
+        elem.add("CODE");
+        elem.add("AFM");
+        elem.add("DESCR");
+        elem.add("COST_PER_DAY");
+        elem.add("COST_PER_ADDITIONAL_PAGE");
+        elem.add("COST_AUTOSHOW");
+    }
+
+    int parse(BufferedReader _buff) {
+        WebAdType ret = new WebAdType();
+
+        try {
+            _buff.reset();
+
+            StringTokenizer lineTokens;
+            String token;
+            String line;
+            line = _buff.readLine();
+            
+            while (!(line.trim().equals("}"))) {
+                ++linesAdvanced;
+
+                if (line.isBlank()) {
+                    line = _buff.readLine();
+                    continue;
+                }
+
+                lineTokens = new StringTokenizer(line);
+                if (lineTokens.countTokens() < 2) {
+                    line = _buff.readLine();
+                    continue;
+                }
+
+                token = lineTokens.nextToken();
+
+                if (token.trim().toUpperCase().equals("CODE")) {
+                    ret.setCode(Integer.parseInt(lineTokens.nextToken()));
+                    
+                    mandatoryElems.set(0, true);
+                }
+
+                else if (token.trim().toUpperCase().equals("AFM")) {
+                    ret.setCarrierVAT(lineTokens.nextToken());
+                    mandatoryElems.set(1, true);
+                }
+                
+                else if (token.trim().toUpperCase().equals("DESCR")) {
+                    lineTokens.nextToken("\"");
+                    ret.setDescription(lineTokens.nextToken("\""));
+                    mandatoryElems.set(2, true);
+                }
+
+                else if (token.trim().toUpperCase().equals("COST_PER_DAY")) {
+                    ret.setCostPerDay(Float.parseFloat(lineTokens.nextToken()));
+                    mandatoryElems.set(3, true);
+                }
+
+                else if (token.trim().toUpperCase().equals("COST_PER_ADDITIONAL_PAGE")) {
+                    ret.setCostPerAdditionalPage(Float.parseFloat(lineTokens.nextToken()));
+                    mandatoryElems.set(4, true);
+                }
+
+                else if (token.trim().toUpperCase().equals("COST_AUTOSHOW")) {
+                    ret.setCostAutoShow(Float.parseFloat(lineTokens.nextToken()));
+                    mandatoryElems.set(5, true);
+                }
+
+                line = _buff.readLine();
+            }
+        } catch (IOException sex) {
+            Logger.getLogger(ParsedWebAdType.class.getName()).log(Level.SEVERE, null, sex);
+        }
+        // ++linesAdvanced;
+
+        int ok = errorLog();
+        if (ok == 0)
+            adv = ret;
+
+        return ok;
+    }
+}
+
+public class AdvTypeParser extends Parser<AdvertisementType> {
+
+    AdvTypeParser() {
+        parsedOutput = new ArrayList<>();
     }
 
     void parse(String filepath) {
@@ -52,37 +345,59 @@ public class AdvTypeParser extends Parser<AdvertisementType> {
 
             StringTokenizer lineTokens;
             String token, line = "";
+            int lineNum = 1;
 
-            AdvertisementType advtype = null;
+            ParsedAdvertisementType parsedAdvType = null;
 
             while (true) {
                 line = _buff.readLine();
+                ++lineNum;
                 if (line == null)
                     break;
 
                 if (line.trim().toUpperCase().equals("ADVTYPE")) {
                     line = _buff.readLine();
-                    while (!(line.trim().equals("}"))) {
-                        lineTokens = new StringTokenizer(line);
-                        token = lineTokens.nextToken();
+                    ++lineNum;
 
-                        if (token.trim().toUpperCase().equals("TYPE")) {
+                    if (line.trim().equals("{")) {
+                        _buff.mark(2048);
+                        while (!(line.trim().equals("}"))) {
+                            line = _buff.readLine();
+                            if (line.isBlank())
+                                continue;
+                            lineTokens = new StringTokenizer(line);
+
+                            if (lineTokens.countTokens() < 2)
+                                continue;
                             token = lineTokens.nextToken();
 
-                            if (token.trim().toUpperCase().equals("Print"))
-                                advtype = printedAdTypeParser(_buff);
-                            else if (token.trim().toUpperCase().equals("Radio"))
-                                advtype = new RadioTVAdType();
-                            else
-                                advtype = new WebAdType();
+                            if (token.trim().toUpperCase().equals("TYPE")) {
+                                token = lineTokens.nextToken();
+
+                                if (token.trim().toUpperCase().equals("PRINT"))
+                                    parsedAdvType = new ParsedPrintedAdType(lineNum);
+                                else if (token.trim().toUpperCase().equals("RADIO"))
+                                    parsedAdvType = new ParsedRadioTVAdType(lineNum);
+                                else if (token.trim().toUpperCase().equals("WEB"))
+                                    parsedAdvType = new ParsedWebAdType(lineNum);
+                                
+                                int parseErrors = parsedAdvType.parse(_buff);
+                                if (parseErrors == 0)
+                                    parsedOutput.add(parsedAdvType.getAdv());
+
+                                lineNum += parsedAdvType.getLinesAdvanced() + parseErrors;
+                                break;
+                            }
+
                         }
                     }
-                    parsedOutput.add(advtype);
                 }
             }
-
-        } catch (IOException sex) {
-
+        } catch (java.util.NoSuchElementException sex) {
+            Logger.getLogger(AdvTypeParser.class.getName()).log(Level.SEVERE,
+                    "ERROR WHILE PROCESSING ADVTYPE FOR TYPE");
+        } catch (IOException ex) {
+            Logger.getLogger(AdvTypeParser.class.getName()).log(Level.SEVERE, "IOException", ex);
         }
     }
 }

@@ -43,7 +43,7 @@ class WebAdType extends AdvertisementType{
         CostPerDay = _CostPerDay;
     }
 
-    void setCostPerAdditionalPage(int _CostPerAdditionalPage) {
+    void setCostPerAdditionalPage(float _CostPerAdditionalPage) {
         CostPerAdditionalPage = _CostPerAdditionalPage;
     }
     
