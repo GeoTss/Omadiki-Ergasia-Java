@@ -4,6 +4,8 @@ class RadioTVAdType extends AdvertisementType {
     // private static int currCode = 100;
     protected float cpsMorning, cpsMidday, cpsEvening, cpsNight;
 
+    RadioTVAdType() {}
+
     RadioTVAdType(String _description, Carrier _carrier, float _cpsMorning, float _cpsMidday, float _cpsEvening,
             float _cpsNight) {
         code = currCode++;

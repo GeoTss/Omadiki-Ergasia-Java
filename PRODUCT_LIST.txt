@@ -1,0 +1,9 @@
+ITEM_LIST
+{
+    ITEM
+    {
+        CODE 0
+        NAME LIGHTSABER
+        DESCR "I have the highground"
+    }
+}
