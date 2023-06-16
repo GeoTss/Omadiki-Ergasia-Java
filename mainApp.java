@@ -141,22 +141,22 @@ public class mainApp {
     CarrierParser carrierParser = new CarrierParser();
     carrierParser.parse("./COMPANY_LIST.txt");
     carrierList _carrierList = new carrierList(carrierParser.getParsedOutput());
-    System.out.println("Carriers parsed");
+    System.out.println("COMPANY_LIST.txt parsed");
 
     AdvTypeParser typeParser = new AdvTypeParser();
     typeParser.parse("./ADVTYPE_LIST.txt");
     typeList _typeList = new typeList(typeParser.getParsedOutput());
-    System.out.println("Types parsed");
+    System.out.println("ADVTYPE_LIST.txt parsed");
 
     ProductParser productParser = new ProductParser();
     productParser.parse("./PRODUCT_LIST.txt");
     productList _productList = new productList(productParser.getParsedOutput());
-    System.out.println("Products parsed");
+    System.out.println("PRODUCT_LIST.txt parsed");
 
     AdvParser advParser = new AdvParser();
     advParser.parse("./ADV.txt");
     adList _adList = new adList(advParser.getParsedOutput());
-    System.out.println("Advertisements parsed");
+    System.out.println("ADV.txt parsed");
 
 
     HashMap<String, ArrayList<Advertisement>> carrierMem = new HashMap<String, ArrayList<Advertisement>>();
