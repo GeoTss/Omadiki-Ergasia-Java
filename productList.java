@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 public class productList {
     ArrayList<Product> myList = new ArrayList<Product>();
@@ -23,5 +26,18 @@ public class productList {
         for (Product pr: myList) {
             System.out.println(pr);
         }
+    }
+    void writeToFile(String filepath) {
+        try{
+            FileWriter file = new FileWriter(filepath);
+            BufferedWriter bw = new BufferedWriter(file);
+            
+            bw.write("PRODUCT_LIST\n{\n");
+            for(Product p : myList)
+                bw.write("\n\tPRODUCT\n\t{\n" + p.genFileFormat() + "\n\t}\n");
+            bw.write("\n}");
+            bw.close();
+
+        }catch(IOException ex){}
     }
 }

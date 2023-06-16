@@ -6,9 +6,9 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ProductParser extends Parser<Product> {
+public class productParser extends Parser<Product> {
     
-    ProductParser() {
+    productParser() {
         parsedOutput = new ArrayList<>();
     }
 

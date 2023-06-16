@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 class carrierList {
     ArrayList<Carrier> myArray = new ArrayList<Carrier>();
@@ -23,5 +26,19 @@ class carrierList {
     }
     public ArrayList<Carrier> getArray() {
         return myArray;
+    }
+    void writeToFile(String filepath){
+        try{
+            FileWriter file = new FileWriter(filepath);
+            BufferedWriter bw = new BufferedWriter(file);
+
+            bw.write("COMPANY_LIST\n{\n");
+            for(Carrier c: myArray)
+                bw.write("\n\tCOMPANY\n\t{\n" + c.genFileFormat() + "\n\t}\n");
+            bw.write("\n}");
+
+            bw.close();
+
+        }catch(IOException ex){}
     }
 }

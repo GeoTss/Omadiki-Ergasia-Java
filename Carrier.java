@@ -19,6 +19,9 @@ class Carrier {
     String getName() {
         return Name;
     }
+    String genFileFormat(){
+        return ("AFM " + VAT + "NAME " + Name).replaceAll("(?m)^", "\t\t");
+    }
     public String toString() {
         return "VAT: " + VAT + "\nName: " + Name;
     }
