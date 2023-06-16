@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Stack;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -69,6 +70,7 @@ class ParsedPrintedAdType extends ParsedAdvertisementType {
 
     int parse(BufferedReader _buff) {
         PrintedAdType ret = new PrintedAdType();
+        boolean angleClosed = false;
 
         try {
             _buff.reset();
@@ -78,7 +80,7 @@ class ParsedPrintedAdType extends ParsedAdvertisementType {
             String line;
             line = _buff.readLine();
             
-            while (!(line.trim().equals("}"))) {
+            while (!line.trim().equals("ADVTYPE") && !angleClosed) {
                 ++linesAdvanced;
 
                 if (line.isBlank()) {
@@ -130,6 +132,7 @@ class ParsedPrintedAdType extends ParsedAdvertisementType {
                 }
 
                 line = _buff.readLine();
+                angleClosed = line.trim().equals("}");
             }
         } catch (IOException sex) {
             Logger.getLogger(ParsedPrintedAdType.class.getName()).log(Level.SEVERE, null, sex);
@@ -137,8 +140,11 @@ class ParsedPrintedAdType extends ParsedAdvertisementType {
         ++linesAdvanced;
 
         int ok = errorLog();
-        if (ok == 0)
+        if (ok == 0 && angleClosed)
             adv = ret;
+        else if(!angleClosed)
+            ok = Integer.MAX_VALUE;
+        
         return ok;
     }
 }
@@ -165,6 +171,7 @@ class ParsedRadioTVAdType extends ParsedAdvertisementType {
 
     int parse(BufferedReader _buff) {
         RadioTVAdType ret = new RadioTVAdType();
+        boolean angleClosed = false;
 
         try {
             _buff.reset();
@@ -174,7 +181,7 @@ class ParsedRadioTVAdType extends ParsedAdvertisementType {
             String line;
             line = _buff.readLine();
             
-            while (!(line.trim().equals("}"))) {
+            while (!line.trim().equals("ADVTYPE") && !angleClosed) {
                 ++linesAdvanced;
                 
                 if (line.isBlank()) {
@@ -227,6 +234,7 @@ class ParsedRadioTVAdType extends ParsedAdvertisementType {
                 }
 
                 line = _buff.readLine();
+                angleClosed = line.trim().equals("}");
             }
         } catch (IOException sex) {
             Logger.getLogger(ParsedRadioTVAdType.class.getName()).log(Level.SEVERE, null, sex);
@@ -234,8 +242,10 @@ class ParsedRadioTVAdType extends ParsedAdvertisementType {
         ++linesAdvanced;
 
         int ok = errorLog();
-        if (ok == 0)
+        if (ok == 0 && angleClosed)
             adv = ret;
+        else if(!angleClosed)
+            ok = Integer.MAX_VALUE;
 
         return ok;
     }
@@ -262,6 +272,7 @@ class ParsedWebAdType extends ParsedAdvertisementType {
 
     int parse(BufferedReader _buff) {
         WebAdType ret = new WebAdType();
+        boolean angleClosed = false;
 
         try {
             _buff.reset();
@@ -271,7 +282,7 @@ class ParsedWebAdType extends ParsedAdvertisementType {
             String line;
             line = _buff.readLine();
             
-            while (!(line.trim().equals("}"))) {
+            while (!line.trim().equals("ADVTYPE") && !angleClosed) {
                 ++linesAdvanced;
 
                 if (line.isBlank()) {
@@ -320,6 +331,7 @@ class ParsedWebAdType extends ParsedAdvertisementType {
                 }
 
                 line = _buff.readLine();
+                angleClosed = line.trim().equals("}");
             }
         } catch (IOException sex) {
             Logger.getLogger(ParsedWebAdType.class.getName()).log(Level.SEVERE, null, sex);
@@ -327,8 +339,10 @@ class ParsedWebAdType extends ParsedAdvertisementType {
         ++linesAdvanced;
 
         int ok = errorLog();
-        if (ok == 0)
+        if (ok == 0 && angleClosed)
             adv = ret;
+        else if(!angleClosed)
+            ok = Integer.MAX_VALUE;
 
         return ok;
     }
@@ -338,6 +352,7 @@ public class AdvTypeParser extends Parser<AdvertisementType> {
 
     AdvTypeParser() {
         parsedOutput = new ArrayList<>();
+        angleStack = new Stack<>();
     }
 
     void parse(String filepath) {
@@ -354,6 +369,7 @@ public class AdvTypeParser extends Parser<AdvertisementType> {
             while (true) {
                 ++lineNum;
                 line = _buff.readLine();
+                // System.out.println(lineNum + ": " + line);
 
                 if (line == null)
                     break;
@@ -361,13 +377,16 @@ public class AdvTypeParser extends Parser<AdvertisementType> {
                 if (line.trim().toUpperCase().equals("ADVTYPE")) {
                     line = _buff.readLine();
                     if (line.trim().equals("{")) {
+                        angleStack.push(true);
+
                         _buff.mark(2048);
                         boolean foundType = false;
                         int tempLineCount = lineNum+1;
 
-                        while (!(line.trim().equals("}"))) {
+                        while(!line.trim().equals("}") ) {
                             line = _buff.readLine();
                             ++tempLineCount;
+                            
 
                             if (line.isBlank())
                                 continue;
@@ -397,12 +416,17 @@ public class AdvTypeParser extends Parser<AdvertisementType> {
                                 int parseErrors = parsedAdvType.parse(_buff);
                                 if (parseErrors == 0)
                                     parsedOutput.add(parsedAdvType.getAdv());
+                                else if(parseErrors == Integer.MAX_VALUE){
+                                    System.out.println("ADVTYPE in line " + lineNum + " expected closing bracket '}'");
+                                    _buff.reset();
+                                }
 
                                 lineNum += parsedAdvType.getLinesAdvanced()+1;
                                 break;
                             }
 
                         }
+                        // angleStack.pop();
                         if(!foundType){
                             System.out.println("Didn't found TYPE for ADVTYPE in line " + lineNum);
                             lineNum = tempLineCount;

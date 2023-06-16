@@ -1,14 +1,16 @@
 COMPANY_LIST
 {
-    COMPANY
-    {
-        AFM 055556677
-        NAME "COMPANY 1"
-    }
 
-    COMPANY
-    {
-        AFM 1312
-        NAME "O PATRIC EIMAI"
-    }
+	COMPANY
+	{
+		AFM 055556677
+		NAME "COMPANY 1"
+	}
+
+	COMPANY
+	{
+		AFM 1312
+		NAME "O PATRIC EIMAI"
+	}
+
 }

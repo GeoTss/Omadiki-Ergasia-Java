@@ -68,6 +68,7 @@ class ParsedPrintedAd extends ParsedAdvertisement {
 
     int parse(BufferedReader _buff) {
         PrintedAd ret = new PrintedAd();
+        boolean angleClosed = false;
 
         try {
             _buff.reset();
@@ -77,7 +78,7 @@ class ParsedPrintedAd extends ParsedAdvertisement {
             String line;
             line = _buff.readLine();
 
-            while (!(line.trim().equals("}"))) {
+            while (!line.trim().equals("ADV") && !angleClosed) {
                 ++linesAdvanced;
 
                 if (line.isBlank()) {
@@ -127,6 +128,7 @@ class ParsedPrintedAd extends ParsedAdvertisement {
                 }
 
                 line = _buff.readLine();
+                angleClosed = line.trim().equals("}");
                 // ++linesAdvanced;
             }
         } catch (IOException sex) {
@@ -135,8 +137,11 @@ class ParsedPrintedAd extends ParsedAdvertisement {
         ++linesAdvanced;
 
         int ok = errorLog();
-        if (ok == 0)
+        if (ok == 0 && angleClosed)
             adv = ret;
+        else if(!angleClosed)
+            ok = Integer.MAX_VALUE;
+        
         return ok;
     }
 }
@@ -161,6 +166,7 @@ class ParsedRadioTVAd extends ParsedAdvertisement {
 
     int parse(BufferedReader _buff) {
         RadioTVAd ret = new RadioTVAd();
+        boolean angleClosed = false;
 
         try {
             _buff.reset();
@@ -170,7 +176,7 @@ class ParsedRadioTVAd extends ParsedAdvertisement {
             String line;
             line = _buff.readLine();
             
-            while (!(line.trim().equals("}"))) {
+            while (!line.trim().equals("ADV") && !angleClosed) {
                 
                 ++linesAdvanced;
                 if (line.isBlank()) {
@@ -221,6 +227,7 @@ class ParsedRadioTVAd extends ParsedAdvertisement {
                 
 
                 line = _buff.readLine();
+                angleClosed = line.trim().equals("}");
                 // ++linesAdvanced;
             }
         } catch (IOException sex) {
@@ -229,8 +236,10 @@ class ParsedRadioTVAd extends ParsedAdvertisement {
         ++linesAdvanced;
 
         int ok = errorLog();
-        if (ok == 0)
+        if (ok == 0 && angleClosed)
             adv = ret;
+        else if(!angleClosed)
+            ok = Integer.MAX_VALUE;
 
         return ok;
     }
@@ -256,6 +265,7 @@ class ParsedWebAd extends ParsedAdvertisement {
 
     int parse(BufferedReader _buff) {
         WebAd ret = new WebAd();
+        boolean angleClosed = false;
 
         try {
             _buff.reset();
@@ -265,7 +275,7 @@ class ParsedWebAd extends ParsedAdvertisement {
             String line;
             line = _buff.readLine();
             
-            while (!(line.trim().equals("}"))) {
+            while (!line.trim().equals("ADV") && !angleClosed) {
                 ++linesAdvanced;
 
                 if (line.isBlank()) {
@@ -315,6 +325,7 @@ class ParsedWebAd extends ParsedAdvertisement {
                 }
 
                 line = _buff.readLine();
+                angleClosed = line.trim().equals("}");
                 // ++linesAdvanced;
             }
         } catch (IOException sex) {
@@ -323,8 +334,10 @@ class ParsedWebAd extends ParsedAdvertisement {
         ++linesAdvanced;
 
         int ok = errorLog();
-        if (ok == 0)
+        if (ok == 0 && angleClosed)
             adv = ret;
+        else if(!angleClosed)
+            ok = Integer.MAX_VALUE;
 
         return ok;
     }
@@ -362,6 +375,7 @@ public class AdvParser extends Parser<Advertisement> {
                         boolean foundType = false;
                         int tempLineCount = lineNum+1;
 
+
                         while (!(line.trim().equals("}"))) {
                             line = _buff.readLine();
                             ++tempLineCount;
@@ -394,11 +408,14 @@ public class AdvParser extends Parser<Advertisement> {
                                 int parseErrors = parsedAdv.parse(_buff);
                                 if (parseErrors == 0)
                                     parsedOutput.add(parsedAdv.getAdv());
+                                else if(parseErrors == Integer.MAX_VALUE){
+                                    System.out.println("ADV in line " + lineNum + " expected closing bracket '}'");
+                                    _buff.reset();
+                                }
 
                                 lineNum += parsedAdv.getLinesAdvanced()+1;
                                 break;
                             }
-
                         }
                         if(!foundType){
                             System.out.println("Didn't find TYPE for ADV in line " + lineNum);

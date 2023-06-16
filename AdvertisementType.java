@@ -7,7 +7,11 @@ abstract public class AdvertisementType{
     String getDescription() { return description; }
     String getCarrierVAT(){ return carrier_VAT; }
 
-    void setCode(int _code) { code = _code; }
+    void setCode(int _code) { 
+        code = _code;
+        currCode = Integer.max(code, currCode)+1;
+    }
+
     void setDescription(String _Description) { description = _Description; }
     void setCarrierVAT(String _carrier_VAT) { carrier_VAT = _carrier_VAT; }
 

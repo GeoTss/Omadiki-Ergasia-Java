@@ -49,11 +49,14 @@ public class CarrierParser extends Parser<Carrier> {
                     if(line.trim().equals("{")){
                         _buff.mark(2077);
 
+                        boolean angleClosed = false;
                         hasElements[0] = hasElements[1] = false;
                         int tempLineCount = 1;
 
-                        while(!line.trim().equals("}")){
+                        while(!line.trim().toUpperCase().equals("COMPANY") && !angleClosed){
                             line = _buff.readLine();
+                            angleClosed = line.trim().equals("}");
+                            
                             ++tempLineCount;
 
                             if(line.isBlank() || line.isEmpty())
@@ -76,8 +79,13 @@ public class CarrierParser extends Parser<Carrier> {
                                 hasElements[1] = true;
                             }
                         }
-                        if(hasElements[0] && hasElements[1])
+
+                        if(hasElements[0] && hasElements[1] && angleClosed)
                             parsedOutput.add(c);
+                        else if(!angleClosed){
+                            System.out.println("COMPANY in line " + lineNum + " expected closing bracket '}'");
+                            _buff.reset();
+                        }
                         else{
                             System.out.println("The following elements are missing from COMPANY in line " + lineNum + ":");
                             for(int i = 0; i < 2; ++i)

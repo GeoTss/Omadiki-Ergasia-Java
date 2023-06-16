@@ -34,7 +34,7 @@ public class productList {
             
             bw.write("PRODUCT_LIST\n{\n");
             for(Product p : myList)
-                bw.write("\n\tPRODUCT\n\t{\n" + p.genFileFormat() + "\n\t}\n");
+                bw.write("\n\tITEM\n\t{\n" + p.genFileFormat() + "\n\t}\n");
             bw.write("\n}");
             bw.close();
 

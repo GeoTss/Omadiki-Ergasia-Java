@@ -1,6 +1,8 @@
 import java.util.ArrayList;
+import java.util.Stack;
 
 abstract public class Parser<T> {
+    protected Stack<Boolean> angleStack;
     protected ArrayList<T> parsedOutput;
 
     ArrayList<T> getParsedOutput() { return parsedOutput; }

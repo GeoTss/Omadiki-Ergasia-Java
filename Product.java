@@ -14,6 +14,7 @@ class Product {
 
     void setCode(int _Code){
         Code = _Code; 
+        currCode = Integer.max(Code, currCode) + 1;
     }
 
     void setDescription(String _Description) {
@@ -37,7 +38,7 @@ class Product {
     }
 
     String genFileFormat(){
-        return ("CODE " + Code + "\nCARRIER_AFM " + ProductVAT + "\nDESCR " + Description).replaceAll("(?m)^", "\t\t");
+        return ("CODE " + Code + "\nCARRIER_AFM " + ProductVAT + "\nDESCR \"" + Description + "\"").replaceAll("(?m)^", "\t\t");
     }
 
     public String toString() {

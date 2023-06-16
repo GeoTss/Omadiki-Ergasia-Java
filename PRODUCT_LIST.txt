@@ -1,18 +1,18 @@
-ITEM_LIST
+PRODUCT_LIST
 {
-    ITEM
-    {
-        CODE 0
-        CARRIER_AFM 1312
-        
-        DESCR "I have the highground"
-    }
 
-    ITEM
-    {
-        CODE 1
-        CARRIER_AFM 2310
+	ITEM
+	{
+		CODE 0
+		CARRIER_AFM 1312
+		DESCR "I have the highground"
+	}
 
-        DESCR "RANDOM"
-    }
+	ITEM
+	{
+		CODE 1
+		CARRIER_AFM 055556677
+		DESCR "RANDOM"
+	}
+
 }

@@ -11,26 +11,6 @@ import java.util.Scanner;
 
 public class mainApp {
 
-  // public static void main(String[] args){
-  //   // CarrierParser p = new CarrierParser();
-  //   // p.parse("./COMPANY_LIST.txt");
-  //   // p.printCarriers();
-
-  //   // productParser _p = new productParser();
-  //   // _p.parse("./PRODUCT_LIST.txt");
-  //   // _p.printProducts();
-
-  //   AdvTypeParser t = new AdvTypeParser();
-  //   t.parse("./ADVTYPE_LIST.txt");
-  //   t.printParsedOutput();
-  //   // AdvParser adv = new AdvParser();
-  //   // adv.parse("./ADV.txt.txt");
-
-  //   // System.out.println();
-  //   // adv.printParsedOutput();
-    
-  // }
-
   public static void greetUser() {
     System.out.print(
         "Type 1 to add a new carrier.\nType 2 to add a new Advertisement type.\nType 3 to add a new Advertisement.\nType 4 to display Advertisements.\nType 5 to display Advertisements of a certain Carrier.\nType 6 to evaluate the cost of all the Advertisements of a certain carrier.\nType 7 to display the count of Advertisements per Product.\nType 8 to evaluate the cost of the Advertisement of a single Product.\nType 9 to display the cost of the Advertisements per Product.\nType 0 to exit the application.\nChoice: ");
@@ -161,18 +141,23 @@ public class mainApp {
     CarrierParser carrierParser = new CarrierParser();
     carrierParser.parse("./COMPANY_LIST.txt");
     carrierList _carrierList = new carrierList(carrierParser.getParsedOutput());
+    System.out.println("Carriers parsed");
 
     AdvTypeParser typeParser = new AdvTypeParser();
     typeParser.parse("./ADVTYPE_LIST.txt");
     typeList _typeList = new typeList(typeParser.getParsedOutput());
+    System.out.println("Types parsed");
 
     ProductParser productParser = new ProductParser();
     productParser.parse("./PRODUCT_LIST.txt");
     productList _productList = new productList(productParser.getParsedOutput());
+    System.out.println("Products parsed");
 
     AdvParser advParser = new AdvParser();
     advParser.parse("./ADV.txt");
     adList _adList = new adList(advParser.getParsedOutput());
+    System.out.println("Advertisements parsed");
+
 
     HashMap<String, ArrayList<Advertisement>> carrierMem = new HashMap<String, ArrayList<Advertisement>>();
     HashMap<Integer, ArrayList<Advertisement>> productMem = new HashMap<Integer, ArrayList<Advertisement>>();
@@ -456,6 +441,7 @@ public class mainApp {
 
     _typeList.writeToFile("./ADVTYPE_LIST.txt");
     _adList.writeToFile("./ADV.txt");
-
+    _productList.writeToFile("./PRODUCT_LIST.txt");
+    _carrierList.writeToFile("./COMPANY_LIST.txt");
   }
 }
