@@ -360,7 +360,13 @@ public class AdvParser extends Parser<Advertisement> {
 
             ParsedAdvertisement parsedAdv = null;
 
-            while (true) {
+            while(!line.trim().toUpperCase().equals("ADV_LIST")){
+                line = _buff.readLine();
+                System.out.println(line);
+                ++lineNum;
+            }
+
+            while (line != null && !line.trim().equals("}")) {
                 ++lineNum;
                 line = _buff.readLine();
                 

@@ -24,7 +24,7 @@ public class CarrierParser extends Parser<Carrier> {
 
             StringTokenizer lineTokens;
             String token;
-            String line;
+            String line = "";
             
             int lineNum = 0;
 
@@ -34,6 +34,9 @@ public class CarrierParser extends Parser<Carrier> {
 
             elems[0] = "NAME";
             elems[1] = "AFM";
+
+            while(!line.trim().toUpperCase().equals("COMPANY_LIST"))
+                line = _buff.readLine();
 
             while(true){
                 ++lineNum;

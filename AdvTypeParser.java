@@ -366,7 +366,13 @@ public class AdvTypeParser extends Parser<AdvertisementType> {
 
             ParsedAdvertisementType parsedAdvType = null;
 
-            while (true) {
+            while(!line.trim().toUpperCase().equals("ADVTYPE_LIST")){
+                line = _buff.readLine();
+                System.out.println(line);
+                ++lineNum;
+            }
+
+            while (line != null && !line.trim().equals("}")) {
                 ++lineNum;
                 line = _buff.readLine();
                 // System.out.println(lineNum + ": " + line);
