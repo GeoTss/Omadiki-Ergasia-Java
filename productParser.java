@@ -6,9 +6,9 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class productParser extends Parser<Product> {
+public class ProductParser extends Parser<Product> {
     
-    productParser() {
+    ProductParser() {
         parsedOutput = new ArrayList<>();
     }
 
@@ -28,7 +28,7 @@ public class productParser extends Parser<Product> {
             String line = "";
 
             int lineNum = 0;
-            
+
             boolean[] hasElements = new boolean[3];
             String[] elems = new String[3];
 
@@ -36,7 +36,13 @@ public class productParser extends Parser<Product> {
             elems[1] = "CARRIER_AFM";
             elems[2] = "DESCR";
 
-            while(true) {
+            while(!line.trim().toUpperCase().equals("ITEM_LIST")){
+                line = _buff.readLine();
+                System.out.println(line);
+                ++lineNum;
+            }
+
+            while(line != null && !line.trim().equals("}")) {
                 ++lineNum;
                 line = _buff.readLine();
 
@@ -49,13 +55,17 @@ public class productParser extends Parser<Product> {
 
                     if(line.trim().equals("{")){
                         _buff.mark(2077);
+
+                        boolean angleClosed = false;
                         hasElements[0] = hasElements[1] = hasElements[2] = false;
                         int tempLineNum = 1;
                         
-                        while(!line.trim().equals("}") && !line.trim().toUpperCase().equals("ITEM")){
+                        while(!line.trim().toUpperCase().equals("ITEM") && !angleClosed){
                             line = _buff.readLine();
-                            ++tempLineNum;
 
+                            angleClosed = line.trim().equals("}");
+                            ++tempLineNum;
+                            
                             if(line != null && line.isBlank())
                                 continue;
                             lineTokens = new StringTokenizer(line);
@@ -79,8 +89,12 @@ public class productParser extends Parser<Product> {
                             }
                         }
                         
-                        if(hasElements[0] && hasElements[1] && hasElements[2])
+                        if(hasElements[0] && hasElements[1] && hasElements[2] && angleClosed)
                             parsedOutput.add(p);
+                        else if(!angleClosed){
+                            System.out.println("ITEM in line " + lineNum + " expected closing bracket '}'");
+                            _buff.reset();
+                        }
                         else{
                             System.out.println("The following elements are missing from ITEM in line " + lineNum + ":");
                             for(int i = 0; i < 3; ++i)

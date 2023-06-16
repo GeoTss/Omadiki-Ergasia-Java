@@ -38,7 +38,7 @@ public class CarrierParser extends Parser<Carrier> {
             while(!line.trim().toUpperCase().equals("COMPANY_LIST"))
                 line = _buff.readLine();
 
-            while(true){
+            while(line != null && !line.trim().equals("}")){
                 ++lineNum;
                 line = _buff.readLine();
                 
